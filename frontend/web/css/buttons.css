@@ -1,0 +1,236 @@
+.btn-primary {
+    background-color: #448AFF !important;
+}
+.btn-primary:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary:active {
+    background-color: #1565C0 !important;
+}
+/* --- */
+.btn-primary-lg {
+    background-color: #448AFF !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 60px !important;
+    font-size: 18px !important;
+    line-height: 18px !important;
+}
+.btn-primary-lg:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary-lg:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary-lg:active {
+    background-color: #1565C0 !important;
+}
+.btn-md {
+    border-radius: 3px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+}
+.btn-primary-md {
+    background-color: #448AFF !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+}
+.a-btn-style-md {
+    padding-top: 13px;
+}
+.btn-primary-md:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary-md:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary-md:active {
+    background-color: #1565C0 !important;
+}
+.btn-primary-sm {
+    background-color: #448AFF !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 20px !important;
+    font-size: 12px !important;
+    line-height: 12px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.btn-primary-sm:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary-sm:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary-sm:active {
+    background-color: #1565C0 !important;
+}
+/* --- */
+.btn-primary-inside-lg {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+    border-radius: 3px !important;
+    height: 60px !important;
+    font-size: 18px !important;
+    line-height: 18px !important;
+}
+.btn-primary-inside-lg:focus {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+}
+.btn-primary-inside-lg:hover {
+    background-color: #1976D2 !important;
+    border-color: #1565C0 !important;
+}
+.btn-primary-inside-lg:active {
+    background-color: #1565C0 !important;
+    border-color: #1565C0 !important;
+}
+.btn-primary-inside-md {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+    border-radius: 3px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+}
+.btn-primary-inside-md:focus {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+}
+.btn-primary-inside-md:hover {
+    background-color: #1976D2 !important;
+    border-color: #1565C0 !important;
+}
+.btn-primary-inside-md:active {
+    background-color: #1565C0 !important;
+    border-color: #1565C0 !important;
+}
+.btn-primary-inside-sm {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+    border-radius: 3px !important;
+    height: 20px !important;
+    font-size: 12px !important;
+    line-height: 12px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.btn-primary-inside-sm:focus {
+    background-color: #448AFF !important;
+    border-color: #FFFFFF !important;
+}
+.btn-primary-inside-sm:hover {
+    background-color: #1976D2 !important;
+    border-color: #1565C0 !important;
+}
+.btn-primary-inside-sm:active {
+    background-color: #1565C0 !important;
+    border-color: #1565C0 !important;
+}
+/* --- */
+.btn-primary-mail-md {
+    background-color: #448AFF !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    padding: 0 15px 0 15px !important;
+}
+.btn-primary-mail-md:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary-mail-md:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary-mail-md:active {
+    background-color: #1565C0 !important;
+}
+.btn-primary-mail-md  i {
+    padding: 0 5px 0 0 !important;
+}
+/* --- */
+.btn-primary-route-md {
+    background-color: #448AFF !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    padding: 0 15px 0 15px !important;
+}
+.btn-primary-route-md:focus {
+    background-color: #448AFF !important;
+}
+.btn-primary-route-md:hover {
+    background-color: #1976D2 !important;
+}
+.btn-primary-route-md:active {
+    background-color: #1565C0 !important;
+}
+.btn-primary-route-md  i {
+    padding: 0 5px 0 0 !important;
+}
+/* --- */
+.btn-success-lg {
+    background-color: #4CAF50 !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 60px !important;
+    font-size: 18px !important;
+    line-height: 18px !important;
+}
+.btn-success-lg:focus {
+    background-color: #4CAF50 !important;
+}
+.btn-success-lg:hover {
+    background-color: #388E3C !important;
+}
+.btn-success-lg:active {
+    background-color: #2E7D32 !important;
+}
+.btn-success-md {
+    background-color: #4CAF50 !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+}
+.btn-success-md:focus {
+    background-color: #4CAF50 !important;
+}
+.btn-success-md:hover {
+    background-color: #388E3C !important;
+}
+.btn-success-md:active {
+    background-color: #2E7D32 !important;
+}
+.btn-success-sm {
+    background-color: #4CAF50 !important;
+    border-radius: 3px !important;
+    border: 0 !important;
+    height: 20px !important;
+    font-size: 12px !important;
+    line-height: 12px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.btn-success-sm:focus {
+    background-color: #4CAF50 !important;
+}
+.btn-success-sm:hover {
+    background-color: #388E3C !important;
+}
+.btn-success-sm:active {
+    background-color: #2E7D32 !important;
+}

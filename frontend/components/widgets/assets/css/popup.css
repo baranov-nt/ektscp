@@ -1,0 +1,113 @@
+/*>>Popup окно*/
+/* Слой затемнения */
+.upload_overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    bottom: 0;
+    display: none;
+    cursor: default;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 90;
+    -webkit-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -ms-transition: opacity .5s;
+    -o-transition: opacity .5s;
+    transition: opacity .5s;
+}
+/* стили модального окна */
+.upload_popup {
+    width: 900px;
+    min-height: 460px;
+    margin: 5% auto;
+    background-color: #fff;
+    border: 3px solid #fff;
+    display: none;
+    left: 0; right: 0;
+    padding: 15px;
+    /* фиксированное позиционирование, окно стабильно при прокрутке */
+    position: absolute;
+    font-size: 14px;
+    top: 0;
+    z-index: 100;
+
+}
+/* формируем кнопку закрытия */
+.upload_close_popup {
+	z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ccc;
+    height: 24px;
+    line-height: 24px;
+    position: absolute;
+    right: -13px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;padding: 0;
+    top: -15px;
+    width: 24px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+    cursor: pointer;
+}
+.upload_close_popup:before {
+    color: rgba(255, 255, 255, 0.9);
+    content: "X";
+    font-size: 14px;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
+}
+.upload_close_popup:hover {
+    background-color: rgba(64, 128, 128, 0.8);
+}
+
+.upload_popup .upload_order{
+    font-size: 24px;
+    font-weight: 600;
+    color: #414042;
+    text-align: center;
+    padding-top: 15px;
+}
+.upload_comment_msg{
+    width: 500px;
+    margin-top: 10px;
+    padding-bottom: 25px;
+    font-weight: 300;
+    font-size: 14px;
+    color: #58595b;
+    line-height: 17px;
+}
+
+#progress-div {
+    position: relative;
+    border: 1px solid #d1d3d4;
+    margin-top: 27px;
+    border-radius: 3px;
+    text-align: center;
+}
+#progress-bar{
+    background-color: #005F93;
+    border-radius: 3px;
+    padding-top: 2px;
+    height: 20px;
+    color: #FFFFFF;
+    width: 0%;
+    -webkit-transition: width .3s;
+    -moz-transition: width .3s;
+    transition: width .3s;
+}
+#progress-status{
+    color: #000;
+    position: absolute;
+    left: 50%;
+}
+#progress-error{
+    color: #ff0000;
+    text-align: center;
+}

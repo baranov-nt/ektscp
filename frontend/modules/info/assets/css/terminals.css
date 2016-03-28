@@ -1,0 +1,200 @@
+/* Info */
+.smartphone {
+    background: url(/images/shop.jpg) no-repeat top center;
+    background-size: cover;
+}
+.smartphone .container {
+	max-width:800px;
+	text-align:center;
+}
+.smartphone .container .logo {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.smartphone .container p {
+    color: white;
+    text-transform: uppercase;
+    height: 60px;
+	margin-top:10px;
+}
+.smartphone .terminal  img{
+	margin-bottom:30px;
+}
+.smartphone .container .icon  {
+	margin:0;
+}
+.smartphone .container .icon div {
+	display: table;
+}
+.operationsystem {
+/* 	background:url(/images/bricks.jpg), radial-gradient(rgba(255,255,255,0.5), rgba(210,210,210,0.5)); */
+    background: #f2f2f2;
+	padding-bottom:20px;
+}
+.operationsystem .container .subtitle{
+    font-size: 14px;
+    padding-bottom: 30px;
+    line-height: 40px;
+    text-align: center;
+	margin-top:-40px;
+}
+.operationsystem .container .title{
+    font-size: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.smartphoneimage a {
+	background: #F7941E;
+    color: white;
+    text-decoration: none;
+    height: 40px;
+    text-align: center;
+    width: 175px;
+    border: 1px solid #F7941E;
+    border-radius: 5px;
+    line-height: 40px;
+    display: block;
+    text-transform: uppercase;
+    margin-top: 10px;
+	text-decoration:none;
+	margin-bottom:40px;
+}
+.smartphoneimage a:hover {
+	text-decoration:none;
+	color:white;
+}
+.place {
+    padding-bottom: 40px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+    z-index: 100;
+    position: relative;	
+}
+.place .subtitle {
+	padding-top:50px;
+	padding-bottom:20px;
+	font-size:28px;
+}
+.place .container .col-md-5 .row{
+	margin-top:10px;
+}
+.place .container .col-md-6 .row{
+	margin-top:10px;
+}
+.service .container .row:not(:nth-child(1)) > .col-sm-4 > .row {
+	line-height: 40px;
+}
+.service .container .row:not(:nth-child(1)) > .col-sm-4 > .row {
+	margin-bottom:20px;
+}
+.vcenter {
+	display: inline-block;
+	float: none;
+	vertical-align: middle;
+}
+.service {
+    background: #f2f2f2;
+    z-index: 0;
+    position: relative;
+}
+.service .subtitle {
+	padding-top:50px;
+	padding-bottom:40px;
+	font-size:21px;
+	color: #004c7f;
+}
+.main_services .row div:nth-child(1){
+	display:inline-block;
+	vertical-align:middle;
+}
+.main_services .row div:nth-child(2){
+    line-height: 20px;
+	display:inline-block;	
+	vertical-align:middle;	
+    padding-left: 25px;
+	float:none;
+	color: #004c7f;
+}
+.orangeline {
+	background:#f2f2f2;
+    z-index: 0;	
+}
+.orangeline .container {
+	text-align:center;
+	color:black;
+}
+.orangeline .button{
+    border: 1px solid #39b54a;
+    color: #fff;
+    height: 40px;
+    cursor: default;
+    font-size: 14px;
+    line-height: 38px;
+    border-radius: 3px;
+    text-align: center;
+    background: #39b54a;
+    cursor: pointer;
+}
+.talking {
+    background: url(/images/background-1.png) no-repeat bottom;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+    position: relative;
+    z-index: 200;
+}
+.talking .subtitle{
+    font-size: 24px;
+    margin-top: 30px;
+	margin-bottom:30px;
+    color: #004c7f;	
+}
+.talking p {
+	font-size:12px;
+    color: #004c7f;	
+}
+.talking img {
+/* 	margin-top:100px; */
+}
+.state {
+    background: url(/images/state.png) no-repeat bottom;
+	box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+}
+
+.state .container  .row .row .row  > .subtitle {
+	padding-top:100px;
+	padding-bottom:20px;
+	font-size:24px;
+	color:black;
+}
+
+.state .container  .row div .row div .subtitle {
+	padding-top:20px;
+	font-size:14px;
+	color:black;
+}
+.state  img {
+	margin-top:-40px;
+	margin-bottom:40px;
+}
+.net {
+	background: url(/images/net.png) no-repeat bottom;
+}
+.net > .container {
+    background: url(/images/earth.png) no-repeat bottom;
+    background-size: contain;
+	height:560px;
+}
+.net .subtitle {
+	padding-top:50px;
+	padding-bottom:20px;
+	font-size:18px;
+	color:white;
+}
+.net > .container >.row > .col-md-6 p {
+	margin-top:180px;
+	color:white;
+}
+.information_society p{
+    margin-bottom: 50px;
+}

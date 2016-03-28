@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Cheeseusaceu';
+    src: local('cheeseusaceu'), url('cheeseusaceu.woff2') format('woff2'), url('cheeseusaceu.woff') format('woff'), url('cheeseusaceu.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}

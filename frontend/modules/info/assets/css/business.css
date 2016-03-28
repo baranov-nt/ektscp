@@ -1,0 +1,30 @@
+.vcenter {
+    display: inline-block !important;
+    vertical-align: middle !important;;
+    float: none !important;
+}
+@media  (min-width: 745px) {
+    .content-header-1-rigth {
+        padding: 70px 50px 0 0;
+    }
+    .padding-sm-business {
+        padding: 10px 0 0 0 !important;
+    }
+}
+
+@media  (max-width: 724px) {
+
+}
+@media  (min-width: 725px) and (max-width: 1100px) {
+
+}
+@media  (min-width: 1099px) and (max-width: 1240px) {
+
+}
+@media  (min-width: 1241px) and (max-width: 1470px) {
+
+}
+@media  (min-width: 1469px) {
+
+
+}

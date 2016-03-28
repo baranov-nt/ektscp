@@ -1,0 +1,12 @@
+/******************************/
+@media (max-width: 767px) {
+    .view {
+        padding-right: 0!important;
+    }
+}
+/******************************/
+@media (max-width: 317px) {
+    .button-panel-blue {
+        font-size: 12px!important;
+    }
+}

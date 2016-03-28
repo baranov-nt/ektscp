@@ -1,0 +1,32 @@
+.state.authorities {
+    background: url(/images/statebackground.png) no-repeat bottom;
+}
+.state .container  .row .row .row  > .subtitle {
+	padding-top:100px;
+	padding-bottom:20px;
+	font-size:24px;
+	color:black;
+}
+
+.state .container  .row div .row div .subtitle {
+	padding-top:20px;
+	font-size:14px;
+	color:black;
+}
+.state  .button {
+    border: 1px solid rgba(68, 138, 255, 1);
+    color: #fff;
+    height: 40px;
+    cursor: default;
+    font-size: 14px;
+    line-height: 38px;
+    border-radius: 3px;
+    text-align: center;
+    background-color: rgba(68, 138, 255, 1);
+    cursor: pointer;
+}
+.state  img {
+	margin-top:80px;
+	margin-bottom:80px;
+}
+.state {}

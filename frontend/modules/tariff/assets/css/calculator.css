@@ -1,0 +1,60 @@
+.calculator {
+	padding-bottom:20px;
+}
+.calculator .container .subtitle{
+    font-size: 14px;
+    padding-bottom: 30px;
+    line-height: 40px;
+    text-align: center;
+	margin-top:-40px;
+}
+.calculator .container .title{
+    font-size: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.calculator .table thead{
+	background-color: rgba(68, 138, 255, 1);
+	color:white;
+}
+.calculator .table thead tr th{
+	text-align:center;
+	vertical-align:middle;
+}
+.calculator .table tbody td{
+	text-align:center;
+}
+.calculator .table .table tbody td{
+	color:black;
+}
+.calculator .dropdown_calc .form-group {
+	 padding-right:10px;
+}
+.calculator .label{
+	color:black;
+	margin-left:-5px;
+}
+.calculator .income p{
+	line-height:12px;
+	font-weight:bold;
+}
+.calculator .sales .form-group {
+	margin-top:-6px;
+}
+.calculator .clearincome > div{
+    border: 2px solid rgb(141, 180, 227);	
+	padding-top:10px;
+	padding-left:40px;;
+}
+.calculator .clearincome > div p{
+	line-height:12px;
+	font-weight:bold;
+}
+.calculator .clearincome > div p:nth-child(2){
+	line-height:12px;
+	font-weight:bold;
+	color:green
+}

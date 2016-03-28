@@ -1,0 +1,65 @@
+body {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    line-height: 20px !important;
+}
+h1 {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 28px !important;
+    font-weight: 300 !important;
+    text-transform: uppercase;
+}
+.page-header {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 28px !important;
+    font-weight: 300 !important;
+    text-transform: uppercase;
+    border: 0 !important;
+}
+.page-subtitle {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+}
+.page-dep {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+.block-header {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+.main-text {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+}
+.main-text-dep {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+.main-text-2 {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+.main-text-dep-2 {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+.text-footnotes {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+}
+.text-footnotes-dep {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}

@@ -1,0 +1,329 @@
+/* Terminals */
+.offerplaces h1 {
+	margin-bottom: 0px; 
+	margin-top: 50px;
+}
+.offerplaces h2 {
+	font-size:21px;
+	font-weight:normal;
+	color: #000000;
+	margin-bottom: 0px; 
+	margin-top: 50px;	
+}
+.city_places {
+	margin-top:30px;
+}
+.city_places .title {
+	font-weight:bold; 
+	text-align:center;	
+}
+.city_places .label {
+	font-weight:300; 
+	text-align:left; 
+	color:black; 
+	margin-left:-5px;
+}
+.house .label {
+	font-weight:300; 
+	text-align:left; 
+	color:black; 
+	margin-left:-5px;
+}
+.street .label {
+	font-weight:300; 
+	text-align:left; 
+	color:black; 
+	margin-left:-5px;
+}
+.offerplaces .worktime {
+	text-align:Center;
+}
+.offerplaces .worktime p {
+	display:inline-block;
+	width:90px;
+}
+.offerplaces .worktime label {
+	line-height: 30px;
+	display:block;
+}
+.offerplaces .worktime label input {
+    height: 20px;
+    width: 20px;
+	display:block;	
+	margin-left:-15px;
+}
+.offerplaces .worktimeblock label::before {
+	margin-top:0px !important;
+}
+.offerplaces .worktimeblock label::after {
+	margin-top:0px !important;
+}
+.offerplaces .giveinternet {
+	text-align:Center;
+}
+
+.offerplaces .giveinternet label {
+    display: block;
+    width: 400px;
+    text-align: left;
+	line-height:30px;	
+}
+.offerplaces .giveinternet label input {
+    height: 20px;
+    width: 20px;
+	display:block;
+	margin-left:-25px;	
+}
+.offerplaces .rent  input{
+    margin-left: -50px;
+	width:100px;
+	height:20px;
+	cursor:pointer;
+}
+.offerplaces .giveinternet .left-side label {
+	text-align: right;
+}
+.offerplaces .giveinternet .left-side input {
+    text-align: right;
+    margin-left: 215px;	 
+}
+.offerplaces .payinternet {
+	text-align:center;
+}
+.offerplaces .payinternet label {
+	display:inline-block;
+/* 	width:90px; */
+	line-height:30px;		
+}
+.offerplaces .payinternet label input {
+    height: 20px;
+    width: 20px;
+    vertical-align: bottom;
+	margin-left:-25px;	
+}
+.offerplaces .rent {
+	text-align:Center;
+}
+.offerplaces .rent label {
+	display:block;
+	width:90px;
+	line-height:30px;	
+}
+.offerplaces .rent label input {
+    height: 20px;
+    width: 20px;
+	margin-left:-25px;		
+}
+.offerplaces .electricity {
+	text-align:center;
+}
+.offerplaces .electricity label {
+	display:block;
+	line-height:30px;		
+}
+.offerplaces .electricity label input {
+    height: 20px;
+    width: 20px;
+	display:block;	
+	margin-left:-25px;		
+}
+.offerplaces .button {
+	border: 1px solid #39b54a;
+    color: #fff;
+    display: block;
+    height: 40px;
+    cursor: default;
+    font-size: 14px;
+    line-height: 38px;
+    border-radius: 3px;
+    text-align: center;
+    background: #39b54a;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+	padding:0;
+	margin:0;
+	width:100%;
+	margin-bottom:50px;
+}
+.offerplaces .media img {
+    width: 206px !important;
+    height: 170px !important;
+    margin-top: 0px !important;
+    margin-left: -3px;	
+	display:none;
+}
+.offerplaces .count-image {
+	display:inline-block;
+}
+.offerplaces .media {
+	display: block; 
+	margin: 0 auto;	
+}
+.offerplaces .attached_file {
+	display:none;
+}
+.offerplaces .attachfile {
+    border: 2px solid white;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    border-radius: 3px;
+    height: 36px;
+	width:210px;
+    line-height: 34px;
+    margin: 0 auto;
+    margin-top: 18px;
+    font-weight: bold;
+    background-color: rgba(68, 138, 255, 1);	
+	display:inline-block; 
+	margin-left:5px;
+}
+.offerplaces .attachfile input {
+    opacity: 0;
+    filter: alpha(opacity:0);
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    border: none;
+    z-index: 999;
+    height: 32px;
+    margin-left: -103px;
+    width: 207px;
+    cursor: pointer;
+}
+.offerplaces .attachfile p {
+	margin-top:-15px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 31px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.add_image {
+	display: inline-block; 
+	background-color: rgba(68, 138, 255, 1); 
+	color: white; 
+	padding-left: 6px; 
+	padding-right: 7px; 
+	padding-top: 1px; 
+	border-radius: 100px; 
+	cursor:pointer;	
+}
+.delete_image {
+	display: inline-block; 
+	background-color: rgba(68, 138, 255, 1); 
+	color: white; 
+	padding-left: 6px; 
+	padding-right: 7px; 
+	padding-top: 1px; 
+	border-radius: 100px; 
+	cursor:pointer;	
+}
+.offerplaces  .button-panel-blue {
+    height: 40px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 38px;
+    border-radius: 3px;
+    text-align: center;
+    background: #27aae1;
+}
+.offerplaces .selectionblock div {
+	margin:0 !important;
+	padding:0 !important;
+}
+.offerplaces .selectelement {
+    height: 16px;
+    font-size: 12px;
+    line-height: 14px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 2px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px solid #a7a7a7;
+}
+#tterminal-arenda_type .rent_opera:nth-child(1){
+	margin-left:20px;
+}
+.offerplaces .rent_opera {
+	width:100px;
+}
+.offerplaces .rent_opera input {
+	width:auto;
+	display:inline-block;
+}
+
+.offerplaces .rent_opera label {
+	width:auto; 
+	display:inline-block;
+	margin-left:5px;
+}
+.offerplaces .selectionblock  .times {
+    width: 10px;
+    height: 10px;
+    outline: none;
+    color: #ccc;
+    background: #000;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px;
+    vertical-align: -10%!important;
+    cursor: pointer!important;
+}
+.field-tterminal-worktime > div {
+	width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+#tterminal-worktime > div:nth-child(2){
+	margin-left:20px !important;
+}
+
+#tterminal-worktime > .worktime_opera:nth-child(2){
+	margin-left:0px !important;
+}
+.offerplaces .electricity .electricity_opera:nth-child(1){
+	padding-left:30px;
+}
+.offerplaces .electricity .electricity_opera:nth-child(1) label{
+	margin-left:20px;
+}
+.offerplaces .internettype .internet_opera:nth-child(1){
+	padding-left:30px;
+}
+.offerplaces .internettype .internet_opera:nth-child(1) label{
+	margin-left:20px;
+} 
+
+
+.offerplaces .giveinternet .left-side label::before {
+	left:auto;
+	text-align: right;
+	margin-left:-25px;
+	margin-top:5px;
+}
+.offerplaces .giveinternet .left-side label::after {
+	left:auto;
+	text-align: right;
+	margin-left:-121px;
+	margin-top:5px;
+}
+.radio input[type="radio"]:checked + label::before {
+    border-color: #5bc0de;
+}
+.offerplaces .radio  label::before {
+	margin-top:5px;
+	cursor:pointer;
+}
+.offerplaces .radio label::after {
+	margin-top:5px;
+    outline: none !important;
+	background-color: #5bc0de;	
+    border-color: #27aae1 !important;	
+	cursor:pointer;
+}

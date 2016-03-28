@@ -1,0 +1,140 @@
+/*info new*/
+.banner-main {
+	background: url(/images/banner-main.png) no-repeat top center;
+    background-size: cover;
+	min-height: 620px;
+}
+.banner-slider-container .container, .banner-main  .container, .slider-main .container {
+	max-width: 940px;
+}
+.banner-desc {
+	color: #fff;
+	font-size: 18px;
+	margin-top: 72px;
+	font-weight: bold;
+	margin-bottom: 25px;
+}
+.banner-main .btn-primary {
+	background: #448aff!important;
+}
+.banner-main .btn-primary:hover {
+	background-color: #286090!important;
+}
+.banner-slider-container {
+	position: relative;
+	margin-top: -480px;
+	z-index: 1050;
+}
+.banner-slider-container .times {
+	top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    outline: none;
+    color: #448aff;
+    cursor: pointer;
+    font-size: 40px;
+    z-index: 1070;
+	padding-top: 0.1em;
+    padding-left: 0.1em;
+    display: none;
+    position: absolute;
+    border-radius: 50px;
+    vertical-align: -10%!important;
+	line-height: .80em!important;
+}
+.banner-slider-container .times:hover {
+	color: #d6d6d6;
+}
+.banner-slider-container .times span{
+    display: block;
+	margin-top: -2px;
+    margin-left: 5px;
+}
+.banner-slider {
+	z-index: 200;
+	display: none!important;
+	max-width: 940px;
+	min-height: 540px;
+	background: #fff;
+	border-radius: 3px;
+	padding-bottom: 30px;
+}
+.banner-slider .text-center{
+	position: relative;
+}
+.banner-slider .next-slide{
+	top: 475px;
+	right: 40px;
+	outline: none;
+	cursor: pointer;
+	font-size: 14px;
+	position: absolute;
+}
+.banner-slider .slick-list {
+	height: auto!important;
+}
+.banner-slider .slick-slide {
+	outline: none;
+}
+.banner-slider-title {
+	color: #004c7f;
+	font-size: 28px;
+	margin-top: 60px;
+	font-weight: 400;
+	line-height: 30px;
+}
+.banner-slider .btn {
+	padding-left: 10px!important;
+	padding-right: 10px!important;
+}
+.banner-slider .slick-dots {
+	bottom: 0;
+}
+.banner-slider .slick-dots button:before {
+	color: #448aff!important;
+	font-size: 13px;
+}
+.slider-main {
+	padding-top: 40px;
+	padding-bottom: 65px;
+	background: url(/images/gradient.png) no-repeat top center;
+    background-size: cover;
+}
+.slider-main .slick-slide {
+	outline: none;
+}
+.slider-main .title {
+	font-size: 20px;
+	font-weight: 300;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-weight: 400 !important;
+	font-size: 18px!important;
+}
+.slider-main .desc {
+	font-size: 14px;
+	font-weight: 300;
+	padding-top: 12px;
+}
+.slider-main .slick-dots button:before {
+	color: #448aff!important;
+	font-size: 13px;
+}
+.slider-main a {line-height: 23px;}
+.overlay {
+	background-color: rgba(0, 0, 0, 0.7);
+	bottom: 0;
+	display: none;
+	cursor: default;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1040;
+	-webkit-transition: opacity .5s;
+	-moz-transition: opacity .5s;
+	-ms-transition: opacity .5s;
+	-o-transition: opacity .5s;
+	transition: opacity .5s;
+}

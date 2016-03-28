@@ -1,0 +1,100 @@
+h3, h4 {
+	font-weight: normal!important;
+	margin-top: 26px;
+}
+h4 {
+	margin-top: 23px;
+}
+.platform {
+	margin: 0 auto;
+	font-size: 12px;
+	max-width: 800px;
+	margin-top: 35px;
+}
+table th {
+	width: 80px;
+	height: 62px;
+	border: none!important;
+	padding: 0!important;
+	font-weight: normal;
+	text-align: center;
+}
+table th div {
+	color: #fff;
+	height: 40px;
+	padding-top: 7px;
+	line-height: 12px;
+	background: #27aae1;
+	border: 1px solid #5a5a5a;
+	border-right: none;
+}
+table th:nth-child(5) div {
+	line-height: 25px;
+}
+table th:first-child div {
+	color: #000;
+	height: 20px;
+	text-align: left;
+	padding-top: 0;
+	line-height: 20px;
+	padding-left: 10px;
+	background: #d1d3d4;
+}
+table th:last-child div {
+	height: 62px;
+	line-height: 13px;
+	background: #f7941e;
+	font-size: 10px;
+	padding-top: 10px;
+	border-right: 1px solid #5a5a5a;
+}
+table td {
+	width: 80px;
+	height: 20px;
+	padding: 0!important;
+	font-weight: normal;
+	border-top: none!important;
+	text-align: center;
+}
+table th:first-child, table td:first-child {width: 300px;}
+table th:last-child, table td:last-child {width: 100px;}
+table td div {
+	color: #fff;
+	height: 20px;
+	padding-top: 4px;
+	line-height: 12px;
+	border: 1px solid #5a5a5a;
+	border-top: none;
+	border-right: none;
+}
+table td:first-child div {
+	color: #000;
+	text-align: left;
+	padding-top: 0;
+	line-height: 20px;
+	padding-left: 10px;
+	background: #fff;
+}
+table td:last-child div {
+	border-right: 1px solid #5a5a5a;
+}
+.check {
+	background: #89c23f;
+}
+.not-check {
+	background: #ff7880;
+}
+table tbody tr:nth-child(14) td div, table tbody tr:nth-child(15) td div, table tbody tr:nth-child(16) td div,
+table tbody tr:nth-child(17) td div, table tbody tr:nth-child(18) td div {
+	height: 40px;
+	padding-top: 12px;
+	line-height: 15px;
+}
+table tbody tr:nth-child(14) td:first-child div, table tbody tr:nth-child(15) td:first-child div,
+table tbody tr:nth-child(16) td:first-child div, table tbody tr:nth-child(17) td:first-child div,
+table tbody tr:nth-child(18) td:first-child div {
+	padding-top: 5px;
+}
+table tbody tr:nth-child(17) td:first-child div {
+	font-size: 11px;
+}
