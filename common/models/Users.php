@@ -720,6 +720,68 @@ class Users  extends ActiveRecord implements IdentityInterface
     {
         /* @var $user \common\models\Users */
         $user = Yii::$app->user->identity;
-        return $material_housing = ArrayHelper::map($user->tPerson->tPersonContact, 'id_pc', 'contact');
+
+        return ArrayHelper::map(TPersonContact::find()
+            ->where([
+                'type_contact' => 1,
+                'id_person' => $user->tPerson->id_person,
+            ])
+            ->all(), 'id_pc', 'contact');
+    }
+
+    public function getEmailsList()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        return ArrayHelper::map(TPersonContact::find()
+            ->where([
+                'type_contact' => 2,
+                'id_person' => $user->tPerson->id_person,
+            ])
+            ->all(), 'id_pc', 'contact');
+    }
+
+    public function getSkypesList()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        return ArrayHelper::map(TPersonContact::find()
+            ->where([
+                'type_contact' => 3,
+                'id_person' => $user->tPerson->id_person,
+            ])
+            ->all(), 'id_pc', 'contact');
+    }
+
+    public function getSitesList()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        return ArrayHelper::map(TPersonContact::find()
+            ->where([
+                'type_contact' => 5,
+                'id_person' => $user->tPerson->id_person,
+            ])
+            ->all(), 'id_pc', 'contact');
+    }
+
+    public function getBirthdate()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        $array = ArrayHelper::map(TPerson::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+                'is_main' => 1,
+            ])
+            ->all(), 'id_person', 'birthdate');
+
+        foreach($array as $key => $value) {
+            return $value ? $array : [];
+        }
     }
 }

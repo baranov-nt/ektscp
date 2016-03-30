@@ -5,49 +5,44 @@
  * Date: 23.03.2016
  * Time: 13:38
  */
-use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 <?php
-switch (Yii::$app->controller->action->id) {
-    case 'call':
-        $modalSize = 'modal-lg';
-        break;
-    case 'message':
-        $modalSize = 'modal-lg';
-        break;
-    case 'favorite':
-        $modalSize = 'modal-sm';
-        break;
-}
-?>
-<?= $this->render('_link-call'); ?>
-<?= $this->render('_link-message'); ?>
-<?= $this->render('_link-favorite'); ?>
-<?php
-$js=<<<JS
-        $("#profileModal").modal("show");
-JS;
-$this->registerJS($js);
-Modal::begin([
-    'size' => $modalSize,
-    'id' => 'profileModal',
-    'header' => '<h1 class="text-center">'.$header.'</h1>',
-    'toggleButton' => false
+Pjax::begin([
+    'id' => 'contact-buttons',
+    'timeout' => 9000,
+    'enablePushState' => false,
+    'options' => [
+        'class' => 'col-xs-12'
+    ]
 ]);
 ?>
-        <?php
-        switch (Yii::$app->controller->action->id) {
-            case 'call':
-                echo $this->render('__modal-call');
-                break;
-            case 'message':
-                echo $this->render('__modal-message');
-                break;
-            case 'favorite':
-                echo $this->render('__modal-favorite');
-                break;
-        }
-        ?>
+<?= Html::a('<span class="glyphicon glyphicon-phone-alt"></span>', Url::to(['/users/profile/call']),
+    [
+        'class' => 'btn btn-primary'
+    ]);
+?>
+<?= Html::a('<span class="glyphicon glyphicon-envelope"></span>', Url::to(['/users/profile/message']),
+    [
+        'class' => 'btn btn-primary',
+        'style' => 'margin-left: 5px;'
+    ]);
+?>
+<?= Html::a('<span class="glyphicon glyphicon-paperclip"></span>', Url::to(['/users/profile/favorite']),
+    [
+        'class' => 'btn btn-primary',
+        'style' => 'margin-left: 5px;'
+    ]);
+?>
 <?php
-Modal::end();
+if(isset($modal)):
+    ?>
+    <?= $this->render('__open-modal'); ?>
+    <?php
+endif;
+?>
+<?php Pjax::end(); ?>
+
 

@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use frontend\models\FileImage;
 use Yii;
+use frontend\models\FileImage;
 
 /**
  * This is the model class for table "t_person".
@@ -38,11 +38,22 @@ use Yii;
  * @property string $prim_ex
  * @property string $email
  * @property integer $is_main
+ * @property string $birthdate
+ * @property integer $sex
+ * @property integer $marital_status
+ * @property integer $children
+ * @property integer $birthcity
  *
  * @property CCommunity $community0
  * @property GCity $city0
+ * @property GCity $birthcity0
+ * @property GReferens $maritalStatus
  * @property Users $user0
+ * @property TPersonContact[] $tPersonContacts
+ * @property TPersonLang[] $tPersonLangs
+ * @property GLang[] $idLangs
  * @property TPersonSection[] $tPersonSections
+ * @property TPersonWork[] $tPersonWorks
  * @property TWfPerson[] $tWfPeople
  * @property TWebFilter[] $idWfs
  * @property TPersonContact $tPersonContact
@@ -67,9 +78,13 @@ class TPerson extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['family', 'name', 'second_name', 'phone', 'web', 'dsc', 'time_of_work', 'address', 'corp', 'num', 'photo', 'lang', 'photo2', 'dsc_ex', 'dsc_ex_ex', 'prim_ex', 'email'], 'string'],
-            [['city', 'address_community', 'level', 'type_num', 'id_photo', 'id_office', 'community', 'user', 'parent_person', 'is_ex', 'id_photo2', 'is_main'], 'integer'],
+            [['name'], 'required'],
+            [['city', 'address_community', 'level', 'type_num', 'id_photo', 'id_office', 'community', 'user', 'parent_person', 'is_ex', 'id_photo2', 'is_main', 'sex', 'marital_status', 'children', 'birthcity'], 'integer'],
+            [['birthdate'], 'safe'],
             [['community'], 'exist', 'skipOnError' => true, 'targetClass' => CCommunity::className(), 'targetAttribute' => ['community' => 'id_community']],
             [['city'], 'exist', 'skipOnError' => true, 'targetClass' => GCity::className(), 'targetAttribute' => ['city' => 'id_city']],
+            [['birthcity'], 'exist', 'skipOnError' => true, 'targetClass' => GCity::className(), 'targetAttribute' => ['birthcity' => 'id_city']],
+            [['marital_status'], 'exist', 'skipOnError' => true, 'targetClass' => GReferens::className(), 'targetAttribute' => ['marital_status' => 'id_ref']],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user' => 'id']],
         ];
     }
@@ -110,6 +125,11 @@ class TPerson extends \yii\db\ActiveRecord
             'prim_ex' => Yii::t('app', 'Prim Ex'),
             'email' => Yii::t('app', 'Email'),
             'is_main' => Yii::t('app', 'Is Main'),
+            'birthdate' => Yii::t('app', 'Birthdate'),
+            'sex' => Yii::t('app', 'Sex'),
+            'marital_status' => Yii::t('app', 'Marital Status'),
+            'children' => Yii::t('app', 'Children'),
+            'birthcity' => Yii::t('app', 'Birthcity'),
         ];
     }
 
@@ -140,9 +160,49 @@ class TPerson extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getBirthcity0()
+    {
+        return $this->hasOne(GCity::className(), ['id_city' => 'birthcity']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaritalStatus()
+    {
+        return $this->hasOne(GReferens::className(), ['id_ref' => 'marital_status']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser0()
     {
         return $this->hasOne(Users::className(), ['id' => 'user']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTPersonContacts()
+    {
+        return $this->hasMany(TPersonContact::className(), ['id_person' => 'id_person']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTPersonLangs()
+    {
+        return $this->hasMany(TPersonLang::className(), ['id_person' => 'id_person']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdLangs()
+    {
+        return $this->hasMany(GLang::className(), ['id_lang' => 'id_lang'])->viaTable('t_person_lang', ['id_person' => 'id_person']);
     }
 
     /**
@@ -156,9 +216,9 @@ class TPerson extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTPersonContact()
+    public function getTPersonWorks()
     {
-        return $this->hasMany(TPersonContact::className(), ['id_person' => 'id_person']);
+        return $this->hasMany(TPersonWork::className(), ['id_person' => 'id_person']);
     }
 
     /**

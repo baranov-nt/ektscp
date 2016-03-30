@@ -15,7 +15,6 @@ use yii\bootstrap\ActiveForm;
 use frontend\components\widgets\WidgetUpload;
 
 AssetBundle::register($this);
-Pjax::widget();
 ?>
 <?php
 $form = ActiveForm::begin([
@@ -68,7 +67,7 @@ if(!$modelTPerson->id_photo):
     <?php
 else:
     ?>
-    <?= Html::button('Изменить изображение',
+    <?= Html::button('Изменить фото',
     [
         'class' => 'btn btn-primary btn-primary-sm',
         'id' => 'upload_image',

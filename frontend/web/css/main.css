@@ -164,3 +164,22 @@ body {
 }
 @media  (min-width: 1469px) {
 }
+
+/*
+@media  (min-width: 1245px) {
+    .period-picker {
+        background-color: #ffffff;
+        height: 30px;
+        border-right: 0;
+    }
+}
+@media  (max-width: 1244px) {
+    .period-picker {
+        background-color: #ffffff;
+        height: 30px;
+        border-right: 0;
+    }
+}
+.calendar-button-style {
+    background-color: #ffffff;
+}*/

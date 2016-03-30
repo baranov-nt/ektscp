@@ -12,7 +12,8 @@ use common\widgets\FontAwesome\AssetBundle;
 use frontend\assets\ChosenAsset;
 use justinvoelker\awesomebootstrapcheckbox\ActiveField;
 use yii\bootstrap\Tabs;
-use common\widgets\UserDataWidget\UserDataWidget;
+use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 ChosenAsset::register($this);
 AssetBundle::register($this);
@@ -31,28 +32,28 @@ $this->title = 'Личный кабинет';
                         <p><?= $modelTPerson->phone ?></p>
                         <p><?= $modelTPerson->email ?></p>
                     </div>
-                    <div id="avatarImage" class="col-xs-4">
-                        <?= $this->render('_avatar',
-                            [
-                                'modelTPerson' => $modelTPerson
-                            ]) ?>
-                    </div>
-                    <div id="profileData1" class="col-xs-12">
-                        <?= $this->render('_link-call'); ?>
-                        <?= $this->render('_link-message'); ?>
-                        <?= $this->render('_link-favorite'); ?>
-                    </div>
+                    <?php
+                    Pjax::begin([
+                        'id' => 'avatarImage',
+                        'timeout' => 9000,
+                        'enablePushState' => false,
+                        'options' => [
+                            'class' => 'col-xs-4'
+                        ]
+                    ]);
+                    ?>
+                    <?= $this->render('_avatar',
+                        [
+                            'modelTPerson' => $modelTPerson
+                        ]) ?>
+                    <?php Pjax::end(); ?>
+                    <?= $this->render('_modal') ?>
                 </div>
             </div>
         </div>
     </div>
-    <div id="user-data" class="col-md-6 col-md-offset-3" style="border: 1px solid #448aff; padding: 10px; background-color: #f5f5f5;">
-        <?= $this->render(
-            '_UserDataWidget',
-            [
-                'id' => 'user-data'
-            ]
-        ) ?>
+    <div class="col-md-6 col-md-offset-3" style="border: 1px solid #448aff; padding: 10px; background-color: #f5f5f5;">
+        <?= $this->render('_user-profile-data') ?>
     </div>
     <div class="col-md-6 col-md-offset-3" style="border: 1px solid #448aff; padding: 10px;">
         <?php

@@ -40,7 +40,10 @@ class BehaviorsController extends Controller {
                     [
                         'allow' => true,
                         'controllers' => ['users/profile'],
-                        'actions' => ['index', 'update-image', 'call', 'message', 'favorite', 'show-contact-form', 'add-phone', 'delete-phone'],
+                        'actions' => ['index', 'update-image', 'call', 'message', 'favorite', 'show-contact-form', 'add-phone', 'delete-phone', 'delete-phone',
+                            'update-phone', 'create-phone', 'delete-email', 'update-email', 'create-email', 'delete-skype', 'update-skype', 'create-skype',
+                            'delete-site', 'update-site', 'create-site', 'delete-birthdate', 'update-birthdate', 'create-birthdate'
+                        ],
                         'roles' => ['Пользователь']
                     ],
                 ]

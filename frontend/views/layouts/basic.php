@@ -151,7 +151,7 @@ if(Yii::$app->controller->module->id == 'terminals' && Yii::$app->controller->ac
             ];
         } else {
             $menuItems[] =  [
-                'label' => '<span class="navbar-main-items-size-3">'.$user->email.'</span>',
+                'label' => '<span class="navbar-main-items-size-3">'.$user->tPerson->name.' '.$user->tPerson->family.'</span>',
                 'items' => [
                     ['label' => Yii::t('app', 'Мой профиль'), 'url' => Url::to(['/users/profile/index'])],
                     ['label' => Yii::t('app', 'Выйти'), 'url' => Url::to(['/site/logout'])],

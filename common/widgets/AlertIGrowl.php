@@ -41,8 +41,8 @@ class AlertIGrowl extends Widget
                       x: 	"center",
                       y: 	"top"
                     },*/
-                    animShow: "fadeIn",
-                    animHide: "fadeOut",
+                    animShow: "bounceInDown",
+                    animHide: "bounceOutUp",
                     delay: 3000
                 });
             ');

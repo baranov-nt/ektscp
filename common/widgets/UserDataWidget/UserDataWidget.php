@@ -37,7 +37,6 @@ class UserDataWidget extends Widget
         //dd($user->phonesList);
         $modelTPersonContact = new TPersonContact();
 
-
         return $this->render(
             'view',
             [
