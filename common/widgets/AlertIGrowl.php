@@ -42,7 +42,7 @@ class AlertIGrowl extends Widget
                       y: 	"top"
                     },*/
                     animShow: "bounceInDown",
-                    animHide: "bounceOutUp",
+                    animHide: "fadeOutUp",
                     delay: 3000
                 });
             ');

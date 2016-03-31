@@ -784,4 +784,88 @@ class Users  extends ActiveRecord implements IdentityInterface
             return $value ? $array : [];
         }
     }
+
+    public function getGender()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        $array = ArrayHelper::map(TPerson::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+                'is_main' => 1,
+            ])
+            ->all(), 'id_person', 'sex');
+
+        foreach($array as $key => $value) {
+            if($value === 0) {
+                return $array;
+            }
+            if($value === 1) {
+                return $array;
+            }
+        }
+        return [];
+    }
+
+    public function getMarital()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        $array = ArrayHelper::map(TPerson::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+                'is_main' => 1,
+            ])
+            ->all(), 'id_person', 'marital_status');
+
+        foreach($array as $key => $value) {
+            if($value !== null) {
+                return $array;
+            }
+        }
+        return [];
+    }
+
+    public function getChildren()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+
+        $array = ArrayHelper::map(TPerson::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+                'is_main' => 1,
+            ])
+            ->all(), 'id_person', 'children');
+
+        foreach($array as $key => $value) {
+            if($value === 0) {
+                return $array;
+            }
+            if($value === 1) {
+                return $array;
+            }
+        }
+        return [];
+    }
+
+    public function getBirthcity()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+        $array = ArrayHelper::map(TPerson::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+                'is_main' => 1,
+            ])
+            ->all(), 'id_person', 'birthcity');
+        foreach($array as $key => $value) {
+            if($value !== null) {
+                return $array;
+            }
+        }
+        return [];
+    }
 }

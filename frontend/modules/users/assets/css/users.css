@@ -1,0 +1,39 @@
+/* Catalog */
+.form-group {
+    margin-bottom: 5px;
+}
+.input-group-addon {
+    height: 30px; padding: 2px 5px 0 5px;
+}
+#datafieldsform-birthdate-kvdate {
+    width: 140px; float: right;
+}
+#datafieldsform-birthdate {
+    height: 30px !important; text-align: right !important; padding-right: 10px !important; font-size: 14px;
+}
+.chosen-container {
+
+}
+.chosen-container .chosen-container-single {
+}
+.chosen-single {
+    display: block;
+    height: 30px !important;
+}
+.chosen-single > span {
+    line-height: 30px !important;
+}
+/*.chosen-single > span {
+    text-align: right;
+}
+.chosen-single > div {
+    padding-top: 5px !important;
+}
+li .active-result .result-selected .highlighted {
+    text-align: center;
+    margin: 30px 34px 11px 32px;
+}*/
+
+
+
+

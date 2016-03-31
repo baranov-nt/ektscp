@@ -4,13 +4,18 @@
  * User: phpNT
  * Date: 29.03.2016
  * Time: 13:20
+ *
+ * @property DataFieldsForm $maritalStatus
  */
 namespace common\widgets\DataFieldsList\models;
 
+use common\models\GReferens;
 use common\models\TPerson;
 use common\models\TPersonContact;
+use frontend\models\GRegion;
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class DataFieldsForm extends Model
 {
@@ -20,6 +25,10 @@ class DataFieldsForm extends Model
     public $skype;
     public $site;
     public $birthdate;
+    public $gender;
+    public $marital;
+    public $children;
+    public $birthcity;
 
     /**
      * @inheritdoc
@@ -38,6 +47,10 @@ class DataFieldsForm extends Model
             ['site', 'required', 'on' => 'siteScenario'],
             ['site', 'validateSite', 'on' => 'siteScenario'],
             ['birthdate', 'validateBirthdate', 'on' => 'birthdateScenario'],
+            ['gender', 'integer', 'on' => 'genderScenario'],
+            ['marital', 'integer', 'on' => 'maritalScenario'],
+            ['children', 'integer', 'on' => 'childrenScenario'],
+            ['birthcity', 'integer', 'on' => 'birthcityScenario'],
         ];
     }
 
@@ -50,7 +63,11 @@ class DataFieldsForm extends Model
             'phone' => 'Телефон',
             'email' => 'Эл. почта',
             'site' => 'Сайт',
-            'birthdate' => 'День рождения'
+            'birthdate' => 'День рождения',
+            'gender' => 'Пол',
+            'marital' => 'Семейное положение',
+            'children' => 'Дети',
+            'birthcity' => 'Родной город',
         ];
     }
 
@@ -143,13 +160,75 @@ class DataFieldsForm extends Model
     public function validateBirthdate()
     {
 
-        $time = strtotime("-18 year", time());
-        $time = Yii::$app->formatter->asDate($time, "php:d.m.Y");
-
-        /*if($this->birthdate > $time) {
-            dd([$this->birthdate, $time]);
+        $date = strtotime("-18 year", time());
+        $dateMin = Yii::$app->formatter->asDate($date, "php:d.m.Y");
+        if(strtotime($dateMin) < strtotime($this->birthdate)) {
             $this->addError('birthdate', Yii::t('app', 'Вам должно быть больше 18 лет.'));
-        }*/
+        }
+    }
+
+    public function getMaritalList()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+
+        if($modelTPerson->sex === 0) {
+            return ArrayHelper::map(GReferens::find()
+                ->where([
+                    'base_ref' => 477,
+                ])
+                ->all(),'id_ref', 'name');
+        } elseif($modelTPerson->sex === 1) {
+            return ArrayHelper::map(GReferens::find()
+                ->where([
+                    'base_ref' => 473,
+                ])
+                ->all(),'id_ref', 'name');
+        } else {
+            return [];
+        }
+    }
+
+    public function getMaritalStatus()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        return $modelTPerson->maritalStatus->name;
+    }
+
+    public function getBirthcityList()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $modelGRegion = GRegion::find()
+            ->joinWith('gCities')
+            ->where(['status' => 0])
+            ->orderBy('name')
+            ->all();
+
+        $items = [];
+        /* @var $region \frontend\models\GRegion */
+        foreach($modelGRegion as $region) {
+            /* @var $city \frontend\models\GCity */
+            foreach($region->gCities as $city) {
+                $items[$region->name.' '.$region->kodTSt->socrname][$city->id_city] = Yii::t('app', $city->name);
+            }
+        }
+
+        return $items;
+    }
+
+    public function getCityName()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        return $modelTPerson->birthcity0->name;
     }
 
     public function savePhone()
@@ -245,6 +324,88 @@ class DataFieldsForm extends Model
         $user = Yii::$app->user->identity;
         $modelTPerson = TPerson::findOne($user->tPerson->id_person);
         $modelTPerson->birthdate = $this->birthdate;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function saveGender()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->sex = $this->gender;
+        $modelTPerson->marital_status = null;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function createGender()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->sex = $this->gender;
+        $modelTPerson->marital_status = null;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function saveMarital()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->marital_status = $this->marital;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function createMarital()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->marital_status = $this->marital;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function saveChildren()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->children = $this->children;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function createChildren()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->children = $this->children;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function saveBirthcity()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->birthcity = $this->birthcity;
+        return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function createBirthcity()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        $user = Yii::$app->user->identity;
+        $modelTPerson = TPerson::findOne($user->tPerson->id_person);
+        $modelTPerson->birthcity = $this->birthcity;
         return $modelTPerson->save() ? true : $modelTPerson;
     }
 }

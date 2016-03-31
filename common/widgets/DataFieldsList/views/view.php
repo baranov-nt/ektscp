@@ -13,19 +13,22 @@ use yii\widgets\MaskedInput;
 use kartik\date\DatePicker;
 use kartik\date\DatePickerAsset;
 use yii\bootstrap\ActiveForm;
+use common\widgets\Chosen\ChosenAsset;
+use frontend\modules\users\assets\UsersAsset;
+use justinvoelker\awesomebootstrapcheckbox\ActiveField;
 
 DatePickerAsset::register($this);
-$this->registerCss("
-.form-group { margin-bottom: 5px;}
-.input-group-addon {height: 30px; padding: 2px 5px 0 5px;}
-#datafieldsform-birthdate-kvdate { width: 140px; float: right;}
-#datafieldsform-birthdate {height: 30px !important; text-align: right; padding-right: 10px !important; font-size: 14px;}
- ");
+ChosenAsset::register($this);
+UsersAsset::register($this);
+/*$this->registerCss("
+
+ ");*/
 $modelDataFieldsForm = $widget->modelDataFieldsForm;
 ?>
 <?= \common\widgets\AlertIGrowl::widget() ?>
+<div class="clearfix"></div>
 <div class="col-md-4" style="margin-bottom: 20px;  ">
-    <h4 style="padding-top: 0; margin-top: 5px;"><?= $modelDataFieldsForm->getAttributeLabel($widget->attribute) ?>:</h4>
+    <h5 style="padding-top: 0; margin-top: 0;"><?= $modelDataFieldsForm->getAttributeLabel($widget->attribute) ?>:</h5>
 </div>
 <div class="col-md-8" style="margin-bottom: 20px;">
     <div class="row">
@@ -36,13 +39,14 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
             if($widget->update == $key):
                 ?>
                 <?php $form = ActiveForm::begin([
-                'action' => Url::to([$widget->actionUpdate, 'id' => $key]),
+                'action' => Url::to(['/users/profile/update-'.$widget->attribute, 'id' => $key]),
                 'options' => [
                     'data-pjax' => true,
                 ],
                 'fieldConfig' => [
                     'template' => "{input}",
                 ],
+                'fieldClass' => ActiveField::className(),
             ]); ?>
                 <div class="col-xs-8 text-right" style="padding-left: 0; padding-bottom: 0 !important; margin-bottom: 0 !important;">
                     <?php
@@ -86,6 +90,40 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                             'autoclose' => true,
                         ]
                     ]);
+                        ?>
+                        <?php
+                    elseif($widget->attribute == 'gender'):
+                        ?>
+                        <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList(['1' => 'мужской', '0' => 'женский'],
+                        [
+                            'class'  => 'chosen-select text-right',
+                        ])->label(false)->error(false);
+                        $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                        ?>
+                        <?php
+                    elseif($widget->attribute == 'marital'):
+                        ?>
+                        <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getMaritalList(),
+                        [
+                            'class'  => 'chosen-select text-right',
+                        ])->label(false)->error(false);
+                        ?>
+                        <?php
+                    elseif($widget->attribute == 'children'):
+                        ?>
+                        <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList(['1' => 'есть', '0' => 'нет'],
+                        [
+                            'class'  => 'chosen-select text-right',
+                        ])->label(false)->error(false);
+                        $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                        ?>
+                        <?php
+                    elseif($widget->attribute == 'birthcity'):
+                        ?>
+                        <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getBirthcityList(),
+                        [
+                            'class'  => 'chosen-select text-right',
+                        ])->label(false)->error(false);
                         ?>
                         <?php
                     else:
@@ -132,32 +170,52 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                             <?php
                             break;
                         case 'birthdate':
-                                ?>
-                                <p><?= Yii::$app->formatter->asDate($value, "php:d.m.Y") ?> г.</p>
-                                <?php
+                            ?>
+                            <p><?= Yii::$app->formatter->asDate($value, "php:d.m.Y") ?> г.</p>
+                            <?php
+                            break;
+                        case 'gender':
+                            ?>
+                            <p><?= ($value == 1) ? 'мужской' : 'женский' ?></p>
+                            <?php
+                            break;
+                        case 'marital':
+                            ?>
+                            <p><?= $modelDataFieldsForm->maritalStatus ?></p>
+                            <?php
+                            break;
+                        case 'children':
+                            ?>
+                            <p><?= ($value == 1) ? 'есть' : 'нет' ?></p>
+                            <?php
+                            break;
+                        case 'birthcity':
+                            ?>
+                            <p><?= $modelDataFieldsForm->cityName ?></p>
+                            <?php
                             break;
                             ?>
-                    <?php
+                            <?php
                     }
                     ?>
                 </div>
                 <div class="col-xs-4 text-right"  style="padding: 0;">
-                    <?= Html::a("<span class='glyphicon glyphicon-pencil'></span>", Url::to([$widget->actionUpdate, 'id' => $key]),
+                    <?= Html::a("<span class='glyphicon glyphicon-pencil'></span>", Url::to(['/users/profile/update-'.$widget->attribute, 'id' => $key]),
                         [
                             'class' => 'btn btn-sm btn-primary',
                             'style' => 'margin: 0;',
                             'title' => 'Редактировать'
                         ]);?>
                     <?php
-                    if($widget->attribute != 'birthdate'):
-                    ?>
-                    <?= Html::a("<span class='glyphicon glyphicon-trash'></span>", Url::to([$widget->actionDelete, 'id' => $key]),
+                    if($widget->showDeleteButton):
+                        ?>
+                        <?= Html::a("<span class='glyphicon glyphicon-trash'></span>", Url::to(['/users/profile/delete-'.$widget->attribute, 'id' => $key]),
                         [
                             'class' => 'btn btn-sm btn-danger',
                             'style' => 'margin-left: 2px; float: rigth;',
                             'title' => 'Удалить'
                         ]);?>
-                    <?php
+                        <?php
                     endif;
                     ?>
                 </div>
@@ -171,7 +229,7 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
         if($widget->create == true):
             ?>
             <?php $form = ActiveForm::begin([
-            'action' => Url::to([$widget->actionCreate]),
+            'action' => Url::to(['/users/profile/create-'.$widget->attribute]),
             'options' => [
                 'data-pjax' => true,
             ],
@@ -195,7 +253,7 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                 elseif($widget->attribute == 'birthdate'):
                     $time = strtotime("-21 year", time());
                     $modelDataFieldsForm[$widget->attribute] = Yii::$app->formatter->asDate($time, "php:d.m.Y");
-                ?>
+                    ?>
                     <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->widget(
                     DatePicker::classname(), [
                     'language' => 'ru',
@@ -220,7 +278,67 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                     ]
                 ]);
                     ?>
-                <?php
+                    <?php
+                elseif($widget->attribute == 'gender'):
+                    ?>
+                    <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList(['1' => 'мужской', '0' => 'женский'],
+                    [
+                        'class'  => 'chosen-select text-right',
+                    ])->label(false)->error(false);
+                    $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                    $script = <<< JS
+                        $("document").ready(function(){
+                            $(".chosen-single span").text("$placeholder");
+                        });
+JS;
+                    $this->registerJs($script);
+                    ?>
+                    <?php
+                elseif($widget->attribute == 'marital'):
+                    ?>
+                    <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getMaritalList(),
+                    [
+                        'class'  => 'chosen-select text-right',
+                    ])->label(false)->error(false);
+                    $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                    $script = <<< JS
+                        $("document").ready(function(){
+                            $(".chosen-single span").text("$placeholder");
+                        });
+JS;
+                    $this->registerJs($script);
+                    ?>
+                    <?php
+                elseif($widget->attribute == 'children'):
+                    ?>
+                    <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList(['1' => 'есть', '0' => 'нет'],
+                    [
+                        'class'  => 'chosen-select text-right',
+                    ])->label(false)->error(false);
+                    $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                    $script = <<< JS
+                        $("document").ready(function(){
+                            $(".chosen-single span").text("$placeholder");
+                        });
+JS;
+                    $this->registerJs($script);
+                    ?>
+                    <?php
+                elseif($widget->attribute == 'birthcity'):
+                    ?>
+                    <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getBirthcityList(),
+                    [
+                        'class'  => 'chosen-select text-right',
+                    ])->label(false)->error(false);
+                    $placeholder = Yii::t('app', $widget->attributesPlaceHolder);
+                    $script = <<< JS
+                        $("document").ready(function(){
+                            $(".chosen-single span").text("$placeholder");
+                        });
+JS;
+                    $this->registerJs($script);
+                    ?>
+                    <?php
                 else:
                     ?>
                     <?= $form->field($widget->modelDataFieldsForm, $widget->attribute, ['template'=>'{input}'])->textInput(
@@ -249,22 +367,25 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
 
                 </div>
                 <div class="col-xs-4 text-right"  style="padding: 0;">
-                    <?= Html::a("<span class='glyphicon glyphicon-plus'></span>", Url::to([$widget->actionCreate]),
+                    <?= Html::a("<span class='glyphicon glyphicon-plus'></span>", Url::to(['/users/profile/create-'.$widget->attribute]),
                         [
+                            'id' => 'buttonPlusDisable',
                             'class' => 'btn btn-sm btn-warning',
                             'style' => 'float: right; margin: 0;',
                             'title' => 'Добавить',
                             'disabled' => false
-                        ]);?>
+                        ]);
+
+                    ?>
                 </div>
                 <?php
-            elseif($widget->attribute == 'birthdate' && !$widget->attributesList):
+            elseif(($widget->attribute == 'birthdate' || $widget->attribute == 'gender') && !$widget->attributesList):
                 ?>
                 <div class="col-xs-8 text-right" style="font-size: 12px; padding-top: 5px; padding-right: 30px;">
 
                 </div>
                 <div class="col-xs-4 text-right"  style="padding: 0;">
-                    <?= Html::a("<span class='glyphicon glyphicon-plus'></span>", Url::to([$widget->actionCreate]),
+                    <?= Html::a("<span class='glyphicon glyphicon-plus'></span>", Url::to(['/users/profile/create-'.$widget->attribute]),
                         [
                             'class' => 'btn btn-sm btn-warning',
                             'style' => 'float: right; margin: 0;',

@@ -33,6 +33,9 @@ return [
         'users' => [
             'class' => 'frontend\modules\users\Module',
         ],
+        'api' => [
+            'class' => 'frontend\modules\api\Module',
+        ],
 		'gii' => [
             'class' => 'yii\gii\Module',
 			'allowedIPs' => ['109.198.112.66', '127.0.0.1'],
@@ -73,6 +76,18 @@ return [
                 [
                     'pattern' => '/terminals/<action>/<id:\d+>',
                     'route' => '/terminals/default/<action>',
+                ],
+                [
+                    'pattern' => '/api/<action>',
+                    'route' => '/api/default/<action>',
+                ],
+                [
+                    'pattern' => '/api/<action>/<api_key:\S+>',
+                    'route' => '/api/default/<action>',
+                ],
+                [
+                    'pattern' => '/api/<action>/<api_key:\S+>/<id:\d+>',
+                    'route' => '/api/default/<action>',
                 ],
                 [
                     'pattern' => 'info/<action>',

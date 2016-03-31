@@ -24,6 +24,7 @@ class AttributesList extends Widget
     public $modelDataFieldsForm;
     public $create = false;
     public $update = false;
+    public $showDeleteButton = true;
 
     public function init()
     {

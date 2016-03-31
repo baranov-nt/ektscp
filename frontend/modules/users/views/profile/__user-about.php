@@ -14,6 +14,9 @@ use common\widgets\DataFieldsList\AttributesList;
     'timeout' => 9000
 ]); ?>
 <?php
+/* @var $user \common\models\Users */
+$user = Yii::$app->user->identity;
+
 if(isset($createBirthdate)):
     ?>
     <?= AttributesList::widget(
@@ -22,10 +25,8 @@ if(isset($createBirthdate)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Birthdate'),
         'attributesList' => 'birthdate',
         'attributesMax' => 1,
-        'actionCreate' => '/users/profile/create-birthdate',
-        'actionUpdate' => '/users/profile/update-birthdate',
-        'actionDelete' => '/users/profile/delete-birthdate',
-        'create' => $createBirthdate
+        'create' => $createBirthdate,
+        'showDeleteButton' => false
     ]); ?>
     <?php
 elseif(isset($updateBirthdate)):
@@ -36,10 +37,8 @@ elseif(isset($updateBirthdate)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Birthdate'),
         'attributesList' => 'birthdate',
         'attributesMax' => 1,
-        'actionCreate' => '/users/profile/create-birthdate',
-        'actionUpdate' => '/users/profile/update-birthdate',
-        'actionDelete' => '/users/profile/delete-birthdate',
-        'update' => $updateBirthdate
+        'update' => $updateBirthdate,
+        'showDeleteButton' => false
     ]); ?>
     <?php
 else:
@@ -50,9 +49,165 @@ else:
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Birthdate'),
         'attributesList' => 'birthdate',
         'attributesMax' => 1,
-        'actionCreate' => '/users/profile/create-birthdate',
-        'actionUpdate' => '/users/profile/update-birthdate',
-        'actionDelete' => '/users/profile/delete-birthdate',
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+endif;
+?>
+<?php
+if(isset($createGender)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'gender',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите ваш пол'),
+        'attributesList' => 'gender',
+        'attributesMax' => 1,
+        'create' => $createGender,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+elseif(isset($updateGender)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'gender',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите ваш пол'),
+        'attributesList' => 'gender',
+        'attributesMax' => 1,
+        'update' => $updateGender,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+else:
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'gender',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите ваш пол'),
+        'attributesList' => 'gender',
+        'attributesMax' => 1,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+endif;
+?>
+<?php
+if($user->tPerson->sex !== null || isset($successCreateGender)):
+    ?>
+    <?php
+    if(isset($createMarital)):
+        ?>
+        <?= AttributesList::widget(
+        [
+            'attribute' => 'marital',
+            'attributesPlaceHolder' => Yii::t('app', 'Ваше семейное положение'),
+            'attributesList' => 'marital',
+            'attributesMax' => 1,
+            'create' => $createMarital,
+            'showDeleteButton' => false
+        ]); ?>
+        <?php
+    elseif(isset($updateMarital)):
+        ?>
+        <?= AttributesList::widget(
+        [
+            'attribute' => 'marital',
+            'attributesPlaceHolder' => Yii::t('app', 'Выберите ваше семейное положение'),
+            'attributesList' => 'marital',
+            'attributesMax' => 1,
+            'update' => $updateMarital,
+            'showDeleteButton' => false
+        ]); ?>
+        <?php
+    else:
+        ?>
+        <?= AttributesList::widget(
+        [
+            'attribute' => 'marital',
+            'attributesPlaceHolder' => Yii::t('app', 'Выберите ваше семейное положение'),
+            'attributesList' => 'marital',
+            'attributesMax' => 1,
+            'showDeleteButton' => false
+        ]); ?>
+        <?php
+    endif;
+    ?>
+<?php
+endif;
+?>
+<?php
+if(isset($createChildren)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'children',
+        'attributesPlaceHolder' => Yii::t('app', 'У вас есть дети?'),
+        'attributesList' => 'children',
+        'attributesMax' => 1,
+        'create' => $createChildren,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+elseif(isset($updateChildren)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'children',
+        'attributesPlaceHolder' => Yii::t('app', 'У вас есть дети?'),
+        'attributesList' => 'children',
+        'attributesMax' => 1,
+        'update' => $updateChildren,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+else:
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'children',
+        'attributesPlaceHolder' => Yii::t('app', 'У вас есть дети?'),
+        'attributesList' => 'children',
+        'attributesMax' => 1,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+endif;
+?>
+<?php
+if(isset($createBirthcity)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'birthcity',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите родной город'),
+        'attributesList' => 'birthcity',
+        'attributesMax' => 1,
+        'create' => $createBirthcity,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+elseif(isset($updateBirthcity)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'birthcity',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите родной город'),
+        'attributesList' => 'birthcity',
+        'attributesMax' => 1,
+        'update' => $updateBirthcity,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+else:
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'birthcity',
+        'attributesPlaceHolder' => Yii::t('app', 'Выберите родной город'),
+        'attributesList' => 'birthcity',
+        'attributesMax' => 1,
+        'showDeleteButton' => false
     ]); ?>
     <?php
 endif;
@@ -68,6 +223,7 @@ $script = <<< JS
             $("#userAbouts").on('pjax:complete', function() {
                 $('#loadingAbouts').hide();
                 $("#userAbouts .btn").attr('disabled', false);
+
             });
         });
 JS;

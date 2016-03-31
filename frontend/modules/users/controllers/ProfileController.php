@@ -10,7 +10,6 @@ namespace frontend\modules\users\controllers;
 
 use common\models\TPersonContact;
 use common\widgets\DataFieldsList\models\DataFieldsForm;
-use common\widgets\PhonesList\models\PhoneForm;
 use Yii;
 use common\models\TPerson;
 use frontend\controllers\BehaviorsController;
@@ -59,320 +58,290 @@ class ProfileController extends BehaviorsController
     }
 
     public function actionCreatePhone() {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'phoneScenario']);
 
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate() && $modelDataFieldsForm->createPhone()) {
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['phone'][0]));
             }
-            Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['phone'][0]));
-            return $this->render('__user-contacts',
-                [
-                    'modelTPerson' => $modelTPerson,
-                ]);
+            $this->renderManual('__user-contacts');
         }
 
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'createPhone' => true
-            ]);
+        $this->renderManual('__user-contacts', 'createPhone', true);
     }
 
     public function actionUpdatePhone($id) {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'phoneScenario']);
 
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate() && $modelDataFieldsForm->savePhone()) {
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['phone'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'updatePhone' => $id
-            ]);
+        $this->renderManual('__user-contacts', 'updatePhone', $id);
     }
 
     public function actionDeletePhone($id) {
         TPersonContact::findOne($id)->delete();
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-            ]);
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-contacts');
     }
 
     public function actionCreateEmail() {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'emailScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->createEmail();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['email'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'createEmail' => true
-            ]);
+        $this->renderManual('__user-contacts', 'createEmail', true);
     }
 
     public function actionUpdateEmail($id) {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'emailScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->saveEmail();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['email'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'updateEmail' => $id
-            ]);
+        $this->renderManual('__user-contacts', 'updateEmail', $id);
     }
 
     public function actionDeleteEmail($id) {
         TPersonContact::findOne($id)->delete();
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-            ]);
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-contacts');
     }
 
     public function actionCreateSkype() {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'skypeScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->createSkype();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['skype'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'createSkype' => true
-            ]);
+        $this->renderManual('__user-contacts', 'createSkype', true);
     }
 
     public function actionUpdateSkype($id) {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'skypeScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->saveSkype();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['skype'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'updateSkype' => $id
-            ]);
+        $this->renderManual('__user-contacts', 'updateSkype', $id);
     }
 
     public function actionDeleteSkype($id) {
         TPersonContact::findOne($id)->delete();
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-            ]);
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-contacts');
     }
 
     public function actionCreateSite() {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'siteScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->createSite();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['site'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'createSite' => true
-            ]);
+        $this->renderManual('__user-contacts', 'createSite', true);
     }
 
     public function actionUpdateSite($id) {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'siteScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->saveSite();
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['site'][0]));
-                return $this->render('__user-contacts',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-contacts');
         }
-
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-                'updateSite' => $id
-            ]);
+        $this->renderManual('__user-contacts', 'updateSite', $id);
     }
 
     public function actionDeleteSite($id) {
         TPersonContact::findOne($id)->delete();
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-        return $this->render('__user-contacts',
-            [
-                'modelTPerson' => $modelTPerson,
-            ]);
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-contacts');
     }
 
     public function actionCreateBirthdate() {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'birthdateScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->createBirthdate();
-                return $this->render('__user-about',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['birthdate'][0]));
-                return $this->render('__user-about',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
             }
+            $this->renderManual('__user-about');
         }
-
-        return $this->render('__user-about',
-            [
-                'modelTPerson' => $modelTPerson,
-                'createBirthdate' => true
-            ]);
+        $this->renderManual('__user-about', 'createBirthdate', true);
     }
 
     public function actionUpdateBirthdate($id) {
-
-        $modelTPerson = TPerson::findOne(['user' => Yii::$app->user->id]);
-
         $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'birthdateScenario']);
-
         if($modelDataFieldsForm->load(Yii::$app->request->post())) {
             if($modelDataFieldsForm->validate()) {
                 $modelDataFieldsForm->saveBirthdate();
-                return $this->render('__user-about',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['birthdate'][0]));
-                return $this->render('__user-about',
-                    [
-                        'modelTPerson' => $modelTPerson,
-                    ]);
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateBirthdate', $id);
+    }
+
+    public function actionCreateGender() {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'genderScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->createGender();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+                $this->renderManual('__user-about', 'successCreateGender', true);
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['gender'][0]));
+                $this->renderManual('__user-about');
             }
         }
+        $this->renderManual('__user-about', 'createGender', true);
+    }
 
-        return $this->render('__user-about',
-            [
-                'modelTPerson' => $modelTPerson,
-                'updateBirthdate' => $id
-            ]);
+    public function actionUpdateGender($id) {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'genderScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->saveGender();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['gender'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateGender', $id);
+    }
+
+    public function actionCreateMarital() {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'maritalScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->createMarital();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['marital'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'createMarital', true);
+    }
+
+    public function actionUpdateMarital($id) {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'maritalScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->saveMarital();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['marital'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateMarital', $id);
+    }
+
+    public function actionCreateChildren() {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'childrenScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->createChildren();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['children'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'createChildren', true);
+    }
+
+    public function actionUpdateChildren($id) {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'childrenScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->saveChildren();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['children'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateChildren', $id);
+    }
+
+    public function actionCreateBirthcity() {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'birthcityScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->createBirthcity();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['birthcity'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'createBirthcity', true);
+    }
+
+    public function actionUpdateBirthcity($id) {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'birthcityScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->saveBirthcity();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['birthcity'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateBirthcity', $id);
+    }
+
+    private function renderManual($render, $sendProperty = false, $value = false) {
+        if($sendProperty && $value) {
+            return $this->render($render,
+                [
+                    $sendProperty => $value
+                ]);
+        }
+        return $this->render($render);
     }
 }

@@ -22,9 +22,6 @@ if(isset($createPhone)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
         'attributesList' => 'phonesList',
         'attributesMax' => Yii::$app->params['maxPhones'],
-        'actionCreate' => '/users/profile/create-phone',
-        'actionUpdate' => '/users/profile/update-phone',
-        'actionDelete' => '/users/profile/delete-phone',
         'create' => $createPhone
     ]); ?>
     <?php
@@ -36,9 +33,6 @@ elseif(isset($updatePhone)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
         'attributesList' => 'phonesList',
         'attributesMax' => Yii::$app->params['maxPhones'],
-        'actionCreate' => '/users/profile/create-phone',
-        'actionUpdate' => '/users/profile/update-phone',
-        'actionDelete' => '/users/profile/delete-phone',
         'update' => $updatePhone
     ]); ?>
     <?php
@@ -50,9 +44,6 @@ else:
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
         'attributesList' => 'phonesList',
         'attributesMax' => Yii::$app->params['maxPhones'],
-        'actionCreate' => '/users/profile/create-phone',
-        'actionUpdate' => '/users/profile/update-phone',
-        'actionDelete' => '/users/profile/delete-phone',
     ]); ?>
     <?php
 endif;
@@ -66,9 +57,6 @@ if(isset($createEmail)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите Емайл'),
         'attributesList' => 'emailsList',
         'attributesMax' => Yii::$app->params['maxEmails'],
-        'actionCreate' => '/users/profile/create-email',
-        'actionUpdate' => '/users/profile/update-email',
-        'actionDelete' => '/users/profile/delete-email',
         'create' => $createEmail
     ]); ?>
     <?php
@@ -80,9 +68,6 @@ elseif(isset($updateEmail)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите Емайл'),
         'attributesList' => 'emailsList',
         'attributesMax' => Yii::$app->params['maxEmails'],
-        'actionCreate' => '/users/profile/create-email',
-        'actionUpdate' => '/users/profile/update-email',
-        'actionDelete' => '/users/profile/delete-email',
         'update' => $updateEmail
     ]); ?>
     <?php
@@ -94,9 +79,6 @@ else:
         'attributesPlaceHolder' => Yii::t('app', 'Введите Емайл'),
         'attributesList' => 'emailsList',
         'attributesMax' => Yii::$app->params['maxEmails'],
-        'actionCreate' => '/users/profile/create-email',
-        'actionUpdate' => '/users/profile/update-email',
-        'actionDelete' => '/users/profile/delete-email',
     ]); ?>
     <?php
 endif;
@@ -110,9 +92,6 @@ if(isset($createSkype)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Skype'),
         'attributesList' => 'skypesList',
         'attributesMax' => Yii::$app->params['maxSkypes'],
-        'actionCreate' => '/users/profile/create-skype',
-        'actionUpdate' => '/users/profile/update-skype',
-        'actionDelete' => '/users/profile/delete-skype',
         'create' => $createSkype
     ]); ?>
     <?php
@@ -124,9 +103,6 @@ elseif(isset($updateSkype)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Skype'),
         'attributesList' => 'skypesList',
         'attributesMax' => Yii::$app->params['maxSkypes'],
-        'actionCreate' => '/users/profile/create-skype',
-        'actionUpdate' => '/users/profile/update-skype',
-        'actionDelete' => '/users/profile/delete-skype',
         'update' => $updateSkype
     ]); ?>
     <?php
@@ -138,9 +114,6 @@ else:
         'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Skype'),
         'attributesList' => 'skypesList',
         'attributesMax' => Yii::$app->params['maxSkypes'],
-        'actionCreate' => '/users/profile/create-skype',
-        'actionUpdate' => '/users/profile/update-skype',
-        'actionDelete' => '/users/profile/delete-skype',
     ]); ?>
     <?php
 endif;
@@ -154,9 +127,6 @@ if(isset($createSite)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите адрес сайта'),
         'attributesList' => 'sitesList',
         'attributesMax' => Yii::$app->params['maxSites'],
-        'actionCreate' => '/users/profile/create-site',
-        'actionUpdate' => '/users/profile/update-site',
-        'actionDelete' => '/users/profile/delete-site',
         'create' => $createSite
     ]); ?>
     <?php
@@ -168,9 +138,6 @@ elseif(isset($updateSite)):
         'attributesPlaceHolder' => Yii::t('app', 'Введите адрес сайта'),
         'attributesList' => 'sitesList',
         'attributesMax' => Yii::$app->params['maxSites'],
-        'actionCreate' => '/users/profile/create-site',
-        'actionUpdate' => '/users/profile/update-site',
-        'actionDelete' => '/users/profile/delete-site',
         'update' => $updateSite
     ]); ?>
     <?php
@@ -182,9 +149,6 @@ else:
         'attributesPlaceHolder' => Yii::t('app', 'Введите адрес сайта'),
         'attributesList' => 'sitesList',
         'attributesMax' => Yii::$app->params['maxSites'],
-        'actionCreate' => '/users/profile/create-site',
-        'actionUpdate' => '/users/profile/update-site',
-        'actionDelete' => '/users/profile/delete-site',
     ]); ?>
     <?php
 endif;

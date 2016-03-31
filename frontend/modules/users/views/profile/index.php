@@ -13,10 +13,11 @@ use frontend\assets\ChosenAsset;
 use justinvoelker\awesomebootstrapcheckbox\ActiveField;
 use yii\bootstrap\Tabs;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
+use frontend\modules\users\assets\UsersAsset;
 
 ChosenAsset::register($this);
 AssetBundle::register($this);
+UsersAsset::register($this);
 
 $this->title = 'Личный кабинет';
 ?>
