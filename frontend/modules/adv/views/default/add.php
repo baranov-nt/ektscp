@@ -14,9 +14,7 @@ Yii::$app->assetManager->forceCopy = true;
 
 WidgetUploadAsset::register($this);
 ChosenAsset::register($this);
-
-$asset = AdvAsset::register($this);
-$assetPath = $asset->baseUrl;
+AdvAsset::register($this);
 
 $this->title = 'Smart Media';
 ?>
@@ -34,7 +32,6 @@ $this->title = 'Smart Media';
 					<?= $form->field($modelTAdv, 'city')->dropDownList($modelTAdv->cityList, [
 								'class'  => 'form-control chosen-select',
 								'style' => 'width: 330px;',
-								'onchange' => 'city_change(this.value)',
 								'prompt' => Yii::t('app', 'Выберите город')
 							])->label(false) ?>
 				</div>
@@ -102,7 +99,7 @@ $this->title = 'Smart Media';
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="last-block">
 			<?= $form->field($modelTAdv, 'places')->dropDownList($modelTAdv->placesList, [
 				'class'  => 'form-control chosen-no-search',

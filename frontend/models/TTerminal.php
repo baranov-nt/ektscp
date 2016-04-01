@@ -2,10 +2,11 @@
 
 namespace frontend\models;
 
-use frontend\models\GalAlbum;
 use Yii;
-use frontend\models\GCity;
 use common\models\GReferens;
+use frontend\models\GCity;
+use frontend\models\GalAlbum;
+use frontend\modules\adv\models\TAdvShedule;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
 use yii\db\ActiveRecord;

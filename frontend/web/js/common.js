@@ -40,7 +40,7 @@ function ajax_add_css(css_array) {
 
 function ajax_add_js(js_array) {
 	var script;
-
+	
 	for(key in js_array) {
 		script = document.createElement('script');
 		script.type = 'text/javascript';

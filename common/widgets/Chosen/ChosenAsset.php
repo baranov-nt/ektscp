@@ -44,7 +44,7 @@ class ChosenAsset extends \yii\web\AssetBundle
         $js = <<<SCRIPT
             $(".chosen-select").chosen({
                 "disable_search_threshold": 15,
-                "no_results_text": "Не найдено "
+                "no_results_text": "Не найдено ",
             });
 SCRIPT;
         Yii::$app->view->registerJs($js, \yii\web\View::POS_READY);

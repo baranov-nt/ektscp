@@ -8,7 +8,6 @@
 /* @var $modelTPerson common\models\TPerson */
 
 use yii\bootstrap\Collapse;
-use yii\bootstrap\Html;
 
 echo Collapse::widget([
     'items' => [
@@ -33,7 +32,7 @@ echo Collapse::widget([
         ],
         // if you want to swap out .panel-body with .list-group, you may use the following
         [
-            'label' => 'Образование',
+            'label' => 'Образование  <span id="loadingEducation" class="fa fa-spinner fa-spin" style="display: none;"></span>',
             'content' => $this->render('__user-educations'),
             'contentOptions' => [
                 //'class' => 'in'

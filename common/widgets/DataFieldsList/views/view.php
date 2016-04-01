@@ -7,6 +7,7 @@
  */
 /* @var $widget \common\widgets\DataFieldsList\AttributesList */
 /* @var $modelDataFieldsForm \common\widgets\DataFieldsList\models\DataFieldsForm */
+
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\widgets\MaskedInput;
@@ -126,6 +127,19 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                         ])->label(false)->error(false);
                         ?>
                         <?php
+                    elseif($widget->attribute == 'langs'):
+                        ?>
+                        <?php
+                        $modelDataFieldsForm[$widget->attribute] = $modelDataFieldsForm->getLangsValue();
+                        ?>
+                        <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getLangsList(),
+                        [
+                            'class'  => 'form-control chosen-select',
+                            'multiple' => 'true',
+                            'data-placeholder' => Yii::t('app', $widget->attributesPlaceHolder)
+                        ])->label(false)->error(false);
+                        ?>
+                        <?php
                     else:
                         ?>
                         <?= $form->field($widget->modelDataFieldsForm, $widget->attribute, ['template'=>'{input}'])->textInput(
@@ -192,6 +206,11 @@ $modelDataFieldsForm = $widget->modelDataFieldsForm;
                         case 'birthcity':
                             ?>
                             <p><?= $modelDataFieldsForm->cityName ?></p>
+                            <?php
+                            break;
+                        case 'langs':
+                            ?>
+                            <p><?= $modelDataFieldsForm->myLangsList ?></p>
                             <?php
                             break;
                             ?>
@@ -337,6 +356,16 @@ JS;
                         });
 JS;
                     $this->registerJs($script);
+                    ?>
+                    <?php
+                elseif($widget->attribute == 'langs'):
+                    ?>
+                    <?= $form->field($widget->modelDataFieldsForm, $widget->attribute)->dropDownList($modelDataFieldsForm->getLangsList(),
+                    [
+                        'class'  => 'form-control chosen-select',
+                        'multiple' => 'true',
+                        'data-placeholder' => Yii::t('app', $widget->attributesPlaceHolder)
+                    ])->label(false)->error(false);
                     ?>
                     <?php
                 else:

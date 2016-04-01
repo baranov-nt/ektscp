@@ -8,4 +8,5 @@ return [
     'maxEmails' => 5,
     'maxSkypes' => 2,
     'maxSites' => 3,
+    'maxEducations' => 5,
 ];

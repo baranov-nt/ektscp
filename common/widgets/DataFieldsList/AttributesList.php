@@ -49,6 +49,3 @@ class AttributesList extends Widget
         ]);
     }
 }
-    {
-
-    }

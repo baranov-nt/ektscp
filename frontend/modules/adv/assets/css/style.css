@@ -119,8 +119,13 @@ input[type=checkbox] {
 	margin: 0 auto;
 	margin-top: 15px;
 	margin-bottom: 45px;
-	max-width: 300px;
-	background: #d1d3d4;
+	/* background: #d1d3d4; */
+}
+.two-block .slider .slick-slide {
+	outline: none!important;
+}
+.two-block {
+	max-width: 920px;
 }
 .two-block .slider .slick-prev {
 	background: url(/images/arrow-left-1.svg)!important;

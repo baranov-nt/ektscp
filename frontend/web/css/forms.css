@@ -5,7 +5,7 @@
     text-align: left !important;
 }
 .form-control {
-    height: 35px !important;
+    height: 40px !important;
 }
 .checkbox-info input[type="checkbox"]:checked + label::before {
     background-color: #27aae1;
@@ -49,6 +49,8 @@
 .has-success label {
     color: #2791c6;
 }
+<<<<<<< .mine
+=======
 .panel-heading {
     background-color: #448aff !important;
     color: #ffffff !important;
@@ -59,3 +61,4 @@
 .panel-body {
 
 }
+>>>>>>> .r670

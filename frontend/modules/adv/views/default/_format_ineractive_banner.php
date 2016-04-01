@@ -43,7 +43,7 @@ use frontend\components\widgets\WidgetUpload;
 		"width" => 1080,
 		"height" => 607,
 	],
-	"extensions" => "gif|jpg|jpeg|png|mp4|wmv|mov|avi",
+	"extensions" => "gif|jpg|jpeg|png",
 	"different_loading" => true,
 ]);?>
 <script>

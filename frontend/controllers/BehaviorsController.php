@@ -44,7 +44,7 @@ class BehaviorsController extends Controller {
                             'update-phone', 'create-phone', 'delete-email', 'update-email', 'create-email', 'delete-skype', 'update-skype', 'create-skype',
                             'delete-site', 'update-site', 'create-site', 'delete-birthdate', 'update-birthdate', 'create-birthdate', 'delete-gender', 'update-gender',
                             'create-gender', 'delete-marital', 'update-marital', 'create-marital', 'delete-children', 'update-children', 'create-children', 'delete-birthcity',
-                            'update-birthcity', 'create-birthcity'
+                            'update-birthcity', 'create-birthcity', 'delete-langs', 'update-langs', 'create-langs', 'delete-education', 'update-education', 'create-education'
                         ],
                         'roles' => ['Пользователь']
                     ],

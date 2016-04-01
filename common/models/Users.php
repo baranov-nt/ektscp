@@ -868,4 +868,21 @@ class Users  extends ActiveRecord implements IdentityInterface
         }
         return [];
     }
+
+    public function getLangs()
+    {
+        /* @var $user \common\models\Users */
+        $user = Yii::$app->user->identity;
+        $array = ArrayHelper::map(TPersonLang::find()
+            ->where([
+                'id_person' => $user->tPerson->id_person,
+            ])
+            ->all(), 'id_person', 'id_lang');
+        foreach($array as $key => $value) {
+            if($value !== null) {
+                return $array;
+            }
+        }
+        return [];
+    }
 }

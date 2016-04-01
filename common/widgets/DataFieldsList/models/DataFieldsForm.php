@@ -4,18 +4,24 @@
  * User: phpNT
  * Date: 29.03.2016
  * Time: 13:20
- *
- * @property DataFieldsForm $maritalStatus
  */
 namespace common\widgets\DataFieldsList\models;
 
+use common\models\GLang;
 use common\models\GReferens;
 use common\models\TPerson;
 use common\models\TPersonContact;
+use common\models\TPersonLang;
 use frontend\models\GRegion;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+
+/**
+ * @property DataFieldsForm[] $maritalStatus
+ * @property DataFieldsForm[] $cityName
+ * @property DataFieldsForm[] $myLangsList
+ */
 
 class DataFieldsForm extends Model
 {
@@ -29,6 +35,7 @@ class DataFieldsForm extends Model
     public $marital;
     public $children;
     public $birthcity;
+    public $langs;
 
     /**
      * @inheritdoc
@@ -51,6 +58,8 @@ class DataFieldsForm extends Model
             ['marital', 'integer', 'on' => 'maritalScenario'],
             ['children', 'integer', 'on' => 'childrenScenario'],
             ['birthcity', 'integer', 'on' => 'birthcityScenario'],
+            ['langs', 'each', 'rule' => ['integer'], 'on' => 'langsScenario'],
+            ['langs', 'required', 'on' => 'langsScenario'],
         ];
     }
 
@@ -68,6 +77,7 @@ class DataFieldsForm extends Model
             'marital' => 'Семейное положение',
             'children' => 'Дети',
             'birthcity' => 'Родной город',
+            'langs' => 'Языки',
         ];
     }
 
@@ -407,5 +417,83 @@ class DataFieldsForm extends Model
         $modelTPerson = TPerson::findOne($user->tPerson->id_person);
         $modelTPerson->birthcity = $this->birthcity;
         return $modelTPerson->save() ? true : $modelTPerson;
+    }
+
+    public function getLangsList()
+    {
+        return ArrayHelper::map(GLang::find()
+            ->all(), 'id_lang', 'lang');
+    }
+
+    public function getMyLangsList() {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        /* @var $one \common\models\TPersonLang */
+        $user = Yii::$app->user->identity;
+        $modelTPersonLang =  TPersonLang::find()
+            ->where(['id_person' => $user->tPerson->id_person])
+            ->all();
+
+        $langs = '';
+        $i = 0;
+        foreach($modelTPersonLang as $one) {
+            if($i != 0)
+                $langs .= ', ';
+            $langs .= $one->idLang->lang;
+            $i++;
+        }
+        return $langs;
+    }
+
+    public function getLangsValue()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        /* @var $one \common\models\TPersonLang */
+        $user = Yii::$app->user->identity;
+        $modelTPersonLang =  TPersonLang::find()
+            ->where(['id_person' => $user->tPerson->id_person])
+            ->all();
+        $langsValue = [];
+        foreach($modelTPersonLang as $one) {
+            $langsValue[] = $one->id_lang;
+        }
+        return $langsValue;
+    }
+
+    public function saveLangs()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        /* @var $modelTPersonLang \common\models\TPersonLang */
+        $user = Yii::$app->user->identity;
+        TPersonLang::deleteAll(['id_person' => $user->tPerson->id_person]);
+        $rows = [];
+        $i = 0;
+        foreach ($this->langs as $one) {
+            $rows[$i]['id_person'] = $user->tPerson->id_person;
+            $rows[$i]['id_lang'] = $one;
+            $i++;
+        }
+        $save = Yii::$app->db->createCommand()->batchInsert(TPersonLang::tableName(), ['id_person', 'id_lang'], $rows)->execute();
+        return $save ? true : false;
+    }
+
+    public function createLangs()
+    {
+        /* @var $user \common\models\Users */
+        /* @var $modelTPerson \common\models\TPerson */
+        /* @var $modelTPersonLang \common\models\TPersonLang */
+        $user = Yii::$app->user->identity;
+        TPersonLang::deleteAll(['id_person' => $user->tPerson->id_person]);
+        $rows = [];
+        $i = 0;
+        foreach ($this->langs as $one) {
+            $rows[$i]['id_person'] = $user->tPerson->id_person;
+            $rows[$i]['id_lang'] = $one;
+            $i++;
+        }
+        $save = Yii::$app->db->createCommand()->batchInsert(TPersonLang::tableName(), ['id_person', 'id_lang'], $rows)->execute();
+        return $save ? true : false;
     }
 }

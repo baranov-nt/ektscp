@@ -212,6 +212,44 @@ else:
     <?php
 endif;
 ?>
+<?php
+if(isset($createLangs)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'langs',
+        'attributesPlaceHolder' => Yii::t('app', 'Выбор языка'),
+        'attributesList' => 'langs',
+        'attributesMax' => 1,
+        'create' => $createLangs,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+elseif(isset($updateLangs)):
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'langs',
+        'attributesPlaceHolder' => Yii::t('app', 'Выбор языка'),
+        'attributesList' => 'langs',
+        'attributesMax' => 1,
+        'update' => $updateLangs,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+else:
+    ?>
+    <?= AttributesList::widget(
+    [
+        'attribute' => 'langs',
+        'attributesPlaceHolder' => Yii::t('app', 'Выбор языка'),
+        'attributesList' => 'langs',
+        'attributesMax' => 1,
+        'showDeleteButton' => false
+    ]); ?>
+    <?php
+endif;
+?>
 <?php Pjax::end(); ?>
 <?php
 $script = <<< JS

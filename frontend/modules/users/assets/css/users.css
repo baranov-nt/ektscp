@@ -23,16 +23,13 @@
 .chosen-single > span {
     line-height: 30px !important;
 }
-/*.chosen-single > span {
-    text-align: right;
+.panel-heading {
+    background-color: #448aff !important;
 }
-.chosen-single > div {
-    padding-top: 5px !important;
+.panel-title {
+    color: #ffffff;
 }
-li .active-result .result-selected .highlighted {
-    text-align: center;
-    margin: 30px 34px 11px 32px;
-}*/
+
 
 
 

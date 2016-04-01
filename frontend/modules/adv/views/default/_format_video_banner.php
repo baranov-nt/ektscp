@@ -27,8 +27,7 @@ use frontend\components\widgets\WidgetUpload;
 		'class'  => 'form-control chosen-no-search',
 		'style' => 'width: 330px;',
 		'id' => 'showTime',
-		'onchange' => 'selectTimeList(this.value)',
-		'prompt' => Yii::t('app', 'Выберите период')
+		'prompt' => Yii::t('app', 'Выберите период трансляции')
 	]); ?>
 </div>
 <?=WidgetUpload::widget([

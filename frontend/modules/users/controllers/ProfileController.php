@@ -10,6 +10,7 @@ namespace frontend\modules\users\controllers;
 
 use common\models\TPersonContact;
 use common\widgets\DataFieldsList\models\DataFieldsForm;
+use common\widgets\EducationWidget\models\EducationForm;
 use Yii;
 use common\models\TPerson;
 use frontend\controllers\BehaviorsController;
@@ -333,6 +334,70 @@ class ProfileController extends BehaviorsController
             $this->renderManual('__user-about');
         }
         $this->renderManual('__user-about', 'updateBirthcity', $id);
+    }
+
+    public function actionCreateLangs() {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'langsScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->createLangs();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['langs'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'createLangs', true);
+    }
+
+    public function actionUpdateLangs($id) {
+        $modelDataFieldsForm = new DataFieldsForm(['scenario' => 'langsScenario']);
+        if($modelDataFieldsForm->load(Yii::$app->request->post())) {
+            if($modelDataFieldsForm->validate()) {
+                $modelDataFieldsForm->saveLangs();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelDataFieldsForm->errors['langs'][0]));
+            }
+            $this->renderManual('__user-about');
+        }
+        $this->renderManual('__user-about', 'updateLangs', $id);
+    }
+
+    public function actionCreateEducation() {
+        $modelEducationForm = new EducationForm(['scenario' => 'educationScenario']);
+        if($modelEducationForm->load(Yii::$app->request->post())) {
+            if($modelEducationForm->validate()) {
+                //$modelEducationForm->createEducation();
+                dd(222);
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+            } else {
+                dd(123);
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
+            }
+            $this->renderManual('__user-educations');
+        }
+        $this->renderManual('__user-educations', 'createEducation', true);
+    }
+
+    public function actionUpdateEducation($id) {
+        $modelEducationForm = new EducationForm(['scenario' => 'educationScenario']);
+        if($modelEducationForm->load(Yii::$app->request->post())) {
+            if($modelEducationForm->validate()) {
+                //$modelEducationForm->saveEducation();
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
+            }
+            $this->renderManual('__user-educations');
+        }
+        $this->renderManual('__user-educations', 'updateEducation', $id);
+    }
+
+    public function actionDeleteEducation($id) {
+        //TPersonContact::findOne($id)->delete();
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-educations');
     }
 
     private function renderManual($render, $sendProperty = false, $value = false) {

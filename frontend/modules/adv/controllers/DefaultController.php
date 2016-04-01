@@ -35,6 +35,14 @@ class DefaultController extends Controller
 						":name" => $_POST["CatalogForm"]["city"]
 					]
 				)->one();
+				/*
+					Типы медиа;
+					5 - готовые шаблоны
+					6 - баннер, видеоролик
+					7 - интерактивная визитка
+					8 - интерактивный баннер
+					9 - сайт, приложение
+				*/
 				
 				$model = new TAdv;
 				//Если был выбран город
@@ -44,9 +52,9 @@ class DefaultController extends Controller
 					$FileImage = FileImage::findOne(["id_file" => $_POST["id_file_image"]]);
 					$model->file = end(explode(".", $FileImage["path"]));
 					$model->id_file = $_POST["id_file_image"];
-					if ($_POST["atype"] == 5) {
+					if ($_POST["atype"] == '_format_template') {
 						$model->type = 5;
-					} else if ($_POST["atype"]) {
+					} else if ($_POST["atype"] == '_format_video_banner') {
 						$model->type = 6;
 					}
 					$model->type_adv = 1;
@@ -79,13 +87,15 @@ class DefaultController extends Controller
 						$start_date = date('d.m.Y', strtotime($s_date[2].'-'.$s_date[1].'-'.$s_date[0]));
 						$finish_date = date('d.m.Y', strtotime($f_date[2].'-'.$f_date[1].'-'.$f_date[0]));
 
-						if ($_POST["atype"] == 5 || $_POST["atype"] == 6) {
-							$place = 10;
-						} else if ($_POST["atype"] == 7) {
-							$place = 3;
-						} else if ($_POST["atype"] == 8) {
+						if ($_POST["atype"] == '_format_template' || $_POST["atype"] == '_format_video_banner') {
 							$place = 4;
-						}
+						} else if ($_POST["atype"] == '_format_ineractive_vizitka') {
+							$place = 4;
+						} else if ($_POST["atype"] == '_format_ineractive_banner') {
+							$place = 4;
+						}/*  else if ($_POST["atype"] == '_format_site_app') {
+							$place = 5;
+						} */
 						
 						$TAdvShedule = new TAdvShedule;
 						$TAdvShedule->startdate = $start_date;
@@ -144,25 +154,20 @@ class DefaultController extends Controller
 	{
 		if($_POST['action']) {
 			$modelTAdv = new TAdv();
-			print $this->renderPartial($_POST['action'],['modelTAdv' => $modelTAdv]);
+			print $this->renderAjax($_POST['action'],['modelTAdv' => $modelTAdv]);
 		}
 	}
 	
 	public function actionGetterminal()
 	{
 		if ($_POST['id_city']) {
-			$city_area = '';$css = '';$cst = '';$csp = '';$category_place = '';$type = '';
+			$css = '';$cst = '';$csp = '';$type = '';$format = '';$place = '';$end_date = '';
 			$work_array = array();
 			$type_array = array();
 			
-			if (isset($_POST['districts'])) $city_area = ' AND city_area IN ('.implode(',', $_POST['districts']).')';
-			if (isset($_POST['places'])) $category_place = ' AND category_place IN ('.implode(',', $_POST['places']).')';
-			if ($_POST['work_time_12'] == 'true') {
-				$work_array[] = 12;
-			}
-			if ($_POST['work_time_24'] == 'true') {
-				$work_array[] = 24;
-			}
+			if ($_POST['work_time_12'] == 'true') $work_array[] = 12;
+			if ($_POST['work_time_24'] == 'true') $work_array[] = 24;
+			
 			if ($_POST['css'] == 'true' || $_POST['cst'] == 'true') {
 				$work = ' AND worktime IN ('.implode(',', $work_array).')';
 			}
@@ -183,23 +188,77 @@ class DefaultController extends Controller
 				$type = ' AND type IN ('.implode(',', $type_array).')';
 			}
 			
-			$sql = 'city = '.$_POST['id_city'].$city_area.$type.$category_place;
+			$sql = 'status = 1 AND city = '.$_POST['id_city'].$type;
 
-			$TTerminal = TTerminal::find()->where($sql)->orderBy('id_terminal ASC')->all();
+			if ($_POST["format"] == '_format_template' || $_POST["format"] == '_format_video_banner') {
+				$place = 4;
+			} else if ($_POST["format"] == '_format_ineractive_vizitka') {
+				$place = 3;
+			} else if ($_POST["format"] == '_format_ineractive_banner') {
+				$place = 4;
+			}/*  else if ($_POST["format"] == '_format_site_app') {
+				$place = 5;
+			} */
 			
+			$sql =  'SELECT * '.
+					' FROM t_terminal ter'.
+					' LEFT JOIN t_advShedule advs'.
+					' ON ter.id_terminal = advs.terminal'.
+					' AND advs.startdate >= \''.$_POST['start_date'].'\''.
+					' AND advs.enddate <= \''.$_POST['end_date'].'\''.
+					' AND advs.status IN (-2, 1)'.
+					($place ? ' AND advs.place = '.$place : '').
+					' LEFT JOIN t_adv adv'.
+					' ON advs.adv = adv.id_adv'.
+					($_POST['selectTime'] ? ' AND adv.period = '.$_POST['selectTime'] : '').
+					' WHERE '.$sql.
+					' ORDER BY ter.id_terminal ASC';
+			$TTerminal = Yii::$app->db->createCommand($sql)->queryAll();
+
 			$array_terminal = array();
+			$array_terminal_date = array();
 			foreach($TTerminal as $key => $value) {
-				$GReferensPlace = GReferens::findOne(['id_ref' => $value['category_place']]);
-				$GReferensType = GReferens::findOne(['id_ref' => $value['type']]);
-				
-				$array_terminal[$key]['id_terminal'] = $value['id_terminal'];
-				$array_terminal[$key]['place'] = $GReferensPlace->name;
-				$array_terminal[$key]['name'] = $value['place'];
-				$array_terminal[$key]['address'] = $value['address'];
-				$array_terminal[$key]['worktime'] = $value['worktime'];
-				$array_terminal[$key]['num'] = '';
-				$array_terminal[$key]['platforma'] = $GReferensType->name.'('.$value['diag'].'&#34;)';
-				$array_terminal[$key]['price'] = '';
+				//Запись диапазона дат в массив
+				$start = new \DateTime($_POST['start_date']);
+				$end   = new \DateTime($_POST['end_date']);
+				$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
+				$arrayOfDates = array_map(
+					function($item){return $item->format('d.m.Y');},
+					iterator_to_array($period)
+				);
+				$array_terminal_date[$value['id_terminal']] = $arrayOfDates;
+				//Конец записи
+				if ($value['startdate']) {
+					if (in_array($value['startdate'], $array_terminal_date[$value['id_terminal']])) {
+						//Запись диапазона дат из базы в массив
+						$start = new \DateTime($value['startdate']);
+						$end   = new \DateTime($value['enddate']);
+						$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
+						$arrayOfDates2 = array_map(
+							function($item){return $item->format('d.m.Y');},
+							iterator_to_array($period)
+						);
+						//Сравниваем 2 массива дат и находи свободные дни
+						$resultDate = array_diff($arrayOfDates, $arrayOfDates2);
+						//Уничтожаем массив
+						unset($array_terminal_date['id_terminal']);
+						//Записываем новый массив
+						$array_terminal_date[$value['id_terminal']] = $resultDate;
+					}
+				}
+				//Если есть свободные даты то пишем терминал
+				if ($array_terminal_date[$value['id_terminal']]) {
+					$GReferensPlace = GReferens::findOne(['id_ref' => $value['category_place']]);
+					$GReferensType = GReferens::findOne(['id_ref' => $value['type']]);
+					
+					$array_terminal[$key]['id_terminal'] = $value['id_terminal'];
+					$array_terminal[$key]['place'] = $GReferensPlace->name;
+					$array_terminal[$key]['name'] = $value['place'];
+					$array_terminal[$key]['address'] = $value['address'];
+					$array_terminal[$key]['date'] = count($array_terminal_date[$value['id_terminal']]);
+					$array_terminal[$key]['platforma'] = $GReferensType->name;
+					$array_terminal[$key]['price'] = '';
+				}
 			}
 			print json_encode(array("result" => true, "array_terminal" => $array_terminal));
 		} else {
@@ -210,9 +269,16 @@ class DefaultController extends Controller
 	public function actionGetdate()
 	{
 		if ($_POST) {
-			print json_encode(array("result" => true, "date" => date("d.m.Y", strtotime($_POST['date']) + $_POST['date_time'])));
+			$date = new \DateTime($_POST['date']);
+			$date->modify($_POST['date_time']);
+			print json_encode(array("result" => true, "date" => $date->format('d.m.Y')));
 		} else {
 			print json_encode(array("result" => false, "error" => "POST пустой!"));
 		}
+	}
+	
+	public function actionOpenedit()
+	{
+		return $this->renderAjax('_my_template');
 	}
 }
