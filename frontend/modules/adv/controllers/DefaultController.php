@@ -12,6 +12,7 @@ use frontend\models\TTerminal;
 use frontend\modules\adv\models\TAdvShedule;
 use frontend\modules\files\models\FileDoc;
 use frontend\modules\files\models\FileImage;
+use frontend\modules\tariff\components\Tariffing;
 use yii\base\Exception;
 use yii\web\Controller;
 
@@ -165,13 +166,6 @@ class DefaultController extends Controller
 			$work_array = array();
 			$type_array = array();
 			
-			if ($_POST['work_time_12'] == 'true') $work_array[] = 12;
-			if ($_POST['work_time_24'] == 'true') $work_array[] = 24;
-			
-			if ($_POST['css'] == 'true' || $_POST['cst'] == 'true') {
-				$work = ' AND worktime IN ('.implode(',', $work_array).')';
-			}
-			
 			if ($_POST['css'] == 'true') {
 				$GReferens = GReferens::findOne(['name' => 'CSS']);
 				$type_array[] = $GReferens->id_ref;
@@ -188,7 +182,7 @@ class DefaultController extends Controller
 				$type = ' AND type IN ('.implode(',', $type_array).')';
 			}
 			
-			$sql = 'status = 1 AND city = '.$_POST['id_city'].$type;
+			$sql = 'ter.status = 1 AND ter.city = '.$_POST['id_city'].$type;
 
 			if ($_POST["format"] == '_format_template' || $_POST["format"] == '_format_video_banner') {
 				$place = 4;
@@ -200,7 +194,7 @@ class DefaultController extends Controller
 				$place = 5;
 			} */
 			
-			$sql =  'SELECT * '.
+			$sql =  'SELECT *, ter.place as terminal_plcae, ter.type as terminal_type, advs.place as shedule_place '.
 					' FROM t_terminal ter'.
 					' LEFT JOIN t_advShedule advs'.
 					' ON ter.id_terminal = advs.terminal'.
@@ -217,6 +211,7 @@ class DefaultController extends Controller
 
 			$array_terminal = array();
 			$array_terminal_date = array();
+			$day_count;
 			foreach($TTerminal as $key => $value) {
 				//Запись диапазона дат в массив
 				$start = new \DateTime($_POST['start_date']);
@@ -227,6 +222,7 @@ class DefaultController extends Controller
 					iterator_to_array($period)
 				);
 				$array_terminal_date[$value['id_terminal']] = $arrayOfDates;
+				$day_count = count($array_terminal_date[$value['id_terminal']]);
 				//Конец записи
 				if ($value['startdate']) {
 					if (in_array($value['startdate'], $array_terminal_date[$value['id_terminal']])) {
@@ -246,17 +242,23 @@ class DefaultController extends Controller
 						$array_terminal_date[$value['id_terminal']] = $resultDate;
 					}
 				}
+
 				//Если есть свободные даты то пишем терминал
 				if ($array_terminal_date[$value['id_terminal']]) {
-					$GReferensPlace = GReferens::findOne(['id_ref' => $value['category_place']]);
-					$GReferensType = GReferens::findOne(['id_ref' => $value['type']]);
+					$GReferensType = GReferens::findOne(['id_ref' => $value['terminal_type']]);
 					
 					$array_terminal[$key]['id_terminal'] = $value['id_terminal'];
-					$array_terminal[$key]['place'] = $GReferensPlace->name;
-					$array_terminal[$key]['name'] = $value['place'];
+					$array_terminal[$key]['category_place'] = $GReferensPlace->name;
+					$array_terminal[$key]['place'] = $value['terminal_plcae'];
 					$array_terminal[$key]['address'] = $value['address'];
 					$array_terminal[$key]['date'] = count($array_terminal_date[$value['id_terminal']]);
 					$array_terminal[$key]['platforma'] = $GReferensType->name;
+					
+					$calculate = Tariffing::calculationTariff(
+						$value['id_terminal'], $value['terminal_type'], $day_count,
+						$_POST['selectTime'], $value['shedule_place'], $value['diag'],
+						$value['worktime'], $value['passability']
+					);
 					$array_terminal[$key]['price'] = '';
 				}
 			}

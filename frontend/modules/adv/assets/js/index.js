@@ -1,7 +1,6 @@
 var id_city, format, selectTime, start_date, end_date;
 var css = false, cst = false, csp = false;
 var click_play;
-var work_time_12 = false, work_time_24 = false;
 var selectInfo = 0;
 
 $(document).ready(function(){
@@ -37,7 +36,7 @@ function select_date(element) {
 		if (tadv_term != '') {
 			$.ajax({
 				url: '/adv/getdate',
-				method: "POST",
+				method: 'POST',
 				data: {date: element.val(), date_time: tadv_term},
 				dataType: "json",
 				complete: function (data) {
@@ -59,7 +58,7 @@ function format_change(value) {
 		format = value;
 		$.ajax({
 			url: '/adv/changeformat',
-			method: "POST",
+			method: 'POST',
 			data: {action: value},
 			dataType: "html",
 			complete: function (data) {
@@ -72,7 +71,7 @@ function format_change(value) {
 function open_edit() {
 	$.ajax({
 		url: '/adv/openedit',
-		method: "POST",
+		method: 'POST',
 		dataType: "html",
 		complete: function (data) {
 			$('.slider').before('<div>'+data.responseText+'</div>');
@@ -104,7 +103,7 @@ function filter_platform() {
 function ajax_getTermianl() {
 	$.ajax({
 		url: '/adv/getterminal',
-		method: "POST",
+		method: 'POST',
 		data: {
 			id_city: id_city,
 			format: format,
@@ -114,28 +113,28 @@ function ajax_getTermianl() {
 			css: css,
 			cst: cst,
 			csp: csp,
-			work_time_12: work_time_12,
-			work_time_24: work_time_24,
 		},
-		dataType: "json",
+		dataType: 'json',
 		complete: function (data) {
 			$('.table tbody').html('');
 			if (data.responseJSON['result'] == true) {
 				for (i = 0;i < data.responseJSON['array_terminal'].length;i++) {
 					$('.table tbody').append('<tr>' +
-						'<td class="main-text">'+
+						'<td class="main-text text-left">'+
 							'<div>'+data.responseJSON['array_terminal'][i]['platforma']+'</div>'+
-							'<div>'+data.responseJSON['array_terminal'][i]['place']+'<br></div>'+
-							'<div>'+data.responseJSON['array_terminal'][i]['name']+'</div>'+
-							'<div>'+data.responseJSON['array_terminal'][i]['address']+'</div>'+
+							'<div>'+
+								data.responseJSON['array_terminal'][i]['place']+
+								'<br>'+
+								data.responseJSON['array_terminal'][i]['address']+
+							'</div>'+
 						'</td>'+
-						'<td class="main-text">'+
-							'<div>'+data.responseJSON['array_terminal'][i]['num']+'</div>'+
+						'<td class="main-text text-left">'+
+							'<div>'+data.responseJSON['array_terminal'][i]['date']+'</div>'+
 						'</td>'+
-						'<td class="main-text">'+
+						'<td class="main-text text-center">'+
 							'<div>'+data.responseJSON['array_terminal'][i]['price']+'</div>'+
 						'</td>'+
-						'<td class="main-text">'+
+						'<td class="main-text text-center">'+
 							'<div class="checkbox checkbox-info checkbox-inline">'+
 								'<input id="terminal-'+data.responseJSON['array_terminal'][i]['id_terminal']+'" data-terminal-id="'+data.responseJSON['array_terminal'][i]['id_terminal']+'" type="checkbox" class="terminal-check" onclick="select_terminal($(this))" name="adv_terminal[]" value="'+data.responseJSON['array_terminal'][i]['id_terminal']+'">'+
 								'<label for="terminal-'+data.responseJSON['array_terminal'][i]['id_terminal']+'"></label>'+

@@ -16,9 +16,11 @@ class EducationWidget extends Widget
 {
     public $attribute;
     public $create = false;
+    public $update = false;
     public $attributesMax;
     public $attributesCount = 4;
     public $modelEducationForm;
+    public $model = false;
 
     public function init()
     {

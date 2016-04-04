@@ -8,18 +8,16 @@ use Yii;
  * This is the model class for table "t_person_edu".
  *
  * @property integer $id_edu
- * @property integer $type_edu 9
- * @property integer $city
- * @property string $edu_org text
+ * @property integer $edu_org
  * @property integer $start_year
  * @property integer $end_year
- * @property string $faculty text
- * @property string $cafedra text
- * @property string $speciality text
- * @property integer $status 481
+ * @property string $faculty
+ * @property string $cafedra
+ * @property string $speciality
+ * @property integer $status
  * @property integer $id_person
  *
- * @property GCity $city0
+ * @property GEduOrg $eduOrg
  * @property GReferens $status0
  */
 class TPersonEdu extends \yii\db\ActiveRecord
@@ -38,10 +36,10 @@ class TPersonEdu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_edu', 'edu_org', 'id_person'], 'required'],
-            [['type_edu', 'city', 'start_year', 'end_year', 'status', 'id_person'], 'integer'],
-            [['edu_org', 'faculty', 'cafedra', 'speciality'], 'string'],
-            [['city'], 'exist', 'skipOnError' => true, 'targetClass' => GCity::className(), 'targetAttribute' => ['city' => 'id_city']],
+            [['edu_org', 'id_person'], 'required'],
+            [['edu_org', 'start_year', 'end_year', 'status', 'id_person'], 'integer'],
+            [['faculty', 'cafedra', 'speciality'], 'string'],
+            [['edu_org'], 'exist', 'skipOnError' => true, 'targetClass' => GEduOrg::className(), 'targetAttribute' => ['edu_org' => 'id_edu_org']],
             [['status'], 'exist', 'skipOnError' => true, 'targetClass' => GReferens::className(), 'targetAttribute' => ['status' => 'id_ref']],
         ];
     }
@@ -53,8 +51,6 @@ class TPersonEdu extends \yii\db\ActiveRecord
     {
         return [
             'id_edu' => Yii::t('app', 'Id Edu'),
-            'type_edu' => Yii::t('app', 'Type Edu'),
-            'city' => Yii::t('app', 'City'),
             'edu_org' => Yii::t('app', 'Edu Org'),
             'start_year' => Yii::t('app', 'Start Year'),
             'end_year' => Yii::t('app', 'End Year'),
@@ -69,9 +65,9 @@ class TPersonEdu extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCity0()
+    public function getEduOrg()
     {
-        return $this->hasOne(GCity::className(), ['id_city' => 'city']);
+        return $this->hasOne(GEduOrg::className(), ['id_edu_org' => 'edu_org']);
     }
 
     /**

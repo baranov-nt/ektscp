@@ -365,23 +365,51 @@ class ProfileController extends BehaviorsController
     }
 
     public function actionCreateEducation() {
-        $modelEducationForm = new EducationForm(['scenario' => 'educationScenario']);
+        $scenario = Yii::$app->request->post('scenario');
+        switch ($scenario) {
+            case 'addSchool':
+                $modelEducationForm = new EducationForm(['scenario' => 'addSchool']);
+                break;
+            case 1:
+                echo "i равно 1";
+                break;
+            case 2:
+                echo "i равно 2";
+                break;
+            default:
+                $modelEducationForm = new EducationForm();
+        }
+
         if($modelEducationForm->load(Yii::$app->request->post())) {
-            if($modelEducationForm->validate()) {
+            //dd($modelEducationForm);
+            switch ($modelEducationForm->education) {
+                case 490:
+                    //$model = new EducationForm(['scenario' => 'addSchool']);
+                    $modelEducationForm->scenario = 'addSchool';
+                    $this->renderManual('__user-educations', 'createEducation', true, $modelEducationForm);
+                    break;
+                case 1:
+                    echo "i равно 1";
+                    break;
+                case 2:
+                    echo "i равно 2";
+                    break;
+            }
+            /*if($modelEducationForm->createEducation()) {
                 //$modelEducationForm->createEducation();
-                dd(222);
                 Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
             } else {
-                dd(123);
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
-            }
+            }*/
             $this->renderManual('__user-educations');
         }
         $this->renderManual('__user-educations', 'createEducation', true);
     }
 
     public function actionUpdateEducation($id) {
-        $modelEducationForm = new EducationForm(['scenario' => 'educationScenario']);
+        $modelEducationForm = new EducationForm(/*['scenario' => 'educationScenario']*/);
+
+        //dd($scenario);
         if($modelEducationForm->load(Yii::$app->request->post())) {
             if($modelEducationForm->validate()) {
                 //$modelEducationForm->saveEducation();
@@ -400,7 +428,14 @@ class ProfileController extends BehaviorsController
         $this->renderManual('__user-educations');
     }
 
-    private function renderManual($render, $sendProperty = false, $value = false) {
+    private function renderManual($render, $sendProperty = false, $value = false, $model = false) {
+        if($sendProperty && $value && $model) {
+            return $this->render($render,
+                [
+                    $sendProperty => $value,
+                    'model' => $model
+                ]);
+        }
         if($sendProperty && $value) {
             return $this->render($render,
                 [
