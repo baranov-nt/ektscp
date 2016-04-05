@@ -20,27 +20,17 @@ class EducationWidget extends Widget
     public $attributesMax;
     public $attributesCount = 4;
     public $modelEducationForm;
-    public $model = false;
 
     public function init()
     {
-        $this->modelEducationForm = new EducationForm();
         parent::init();
     }
 
     public function run()
     {
-        /* @var $user \common\models\Users */
-        /*$user = Yii::$app->user->identity;
-
-        $this->attributesList = $user[$this->attributesList];
-        $this->attributesCount = count($this->attributesList);
-
-        if($this->update || $this->create) {
+        if(!$this->modelEducationForm) {
             $this->modelEducationForm = new EducationForm();
-        }*/
-
-        $this->attributesCount = 4;
+        }
 
         return $this->render('view', [
             'widget' => $this

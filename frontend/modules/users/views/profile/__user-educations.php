@@ -6,6 +6,7 @@
  * Time: 11:15
  */
 /* @var $createEducation bool */
+/* @var $modelEducationForm \common\widgets\EducationWidget\models\EducationForm */
 
 use yii\widgets\Pjax;
 use common\widgets\EducationWidget\EducationWidget;
@@ -24,12 +25,7 @@ if(isset($createEducation)):
             'attribute' => 'education',
             'attributesMax' => Yii::$app->params['maxEducations'],
             'create' => $createEducation,
-            'model' => $model
-            /*'attribute' => 'phone',
-            'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
-            'attributesList' => 'phonesList',
-            'attributesMax' => Yii::$app->params['maxPhones'],
-            'create' => $createPhone*/
+            'modelEducationForm' => $model
         ]);
         ?>
         <?php
@@ -40,11 +36,6 @@ if(isset($createEducation)):
             'attribute' => 'education',
             'attributesMax' => Yii::$app->params['maxEducations'],
             'create' => $createEducation,
-            /*'attribute' => 'phone',
-            'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
-            'attributesList' => 'phonesList',
-            'attributesMax' => Yii::$app->params['maxPhones'],
-            'create' => $createPhone*/
         ]);
         ?>
         <?php
@@ -58,11 +49,6 @@ elseif(isset($updateEducation)):
         'attribute' => 'education',
         'attributesMax' => Yii::$app->params['maxEducations'],
         'update' => $updateEducation,
-        /*'attribute' => 'phone',
-        'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
-        'attributesList' => 'phonesList',
-        'attributesMax' => Yii::$app->params['maxPhones'],
-        'update' => $updatePhone*/
     ]); ?>
     <?php
 else:
@@ -71,10 +57,6 @@ else:
     [
         'attribute' => 'education',
         'attributesMax' => Yii::$app->params['maxEducations'],
-        /*'attribute' => 'phone',
-        'attributesPlaceHolder' => Yii::t('app', 'Введите ваш Phone'),
-        'attributesList' => 'phonesList',
-        'attributesMax' => Yii::$app->params['maxPhones'],*/
     ]); ?>
     <?php
 endif;
@@ -86,6 +68,7 @@ $script = <<< JS
             $("#userEducation").on('pjax:send', function() {
                 $('#loadingEducation').show();
                 $("#userEducation .btn").attr('disabled', true);
+                $(".modal").modal("hide");
             });
             $("#userEducation").on('pjax:complete', function() {
                 $('#loadingEducation').hide();

@@ -9,6 +9,7 @@
 namespace frontend\modules\users\controllers;
 
 use common\models\TPersonContact;
+use common\models\TPersonEdu;
 use common\widgets\DataFieldsList\models\DataFieldsForm;
 use common\widgets\EducationWidget\models\EducationForm;
 use Yii;
@@ -365,67 +366,91 @@ class ProfileController extends BehaviorsController
     }
 
     public function actionCreateEducation() {
-        $scenario = Yii::$app->request->post('scenario');
-        switch ($scenario) {
-            case 'addSchool':
-                $modelEducationForm = new EducationForm(['scenario' => 'addSchool']);
-                break;
-            case 1:
-                echo "i равно 1";
-                break;
-            case 2:
-                echo "i равно 2";
-                break;
-            default:
-                $modelEducationForm = new EducationForm();
-        }
-
+        //dd(Yii::$app->request->post());
+        $modelEducationForm = new EducationForm();
         if($modelEducationForm->load(Yii::$app->request->post())) {
-            //dd($modelEducationForm);
-            switch ($modelEducationForm->education) {
-                case 490:
-                    //$model = new EducationForm(['scenario' => 'addSchool']);
-                    $modelEducationForm->scenario = 'addSchool';
-                    $this->renderManual('__user-educations', 'createEducation', true, $modelEducationForm);
+            $scenario = Yii::$app->request->post('scenario');
+            //dd($modelEducationForm->getTypeEdu($modelEducationForm->education));
+            switch ($modelEducationForm->getTypeEdu($modelEducationForm->education)) {
+                case 'Школа':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addSchool', $typeEducation = $modelEducationForm->education);
                     break;
-                case 1:
-                    echo "i равно 1";
+                case 'Лицей':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addLyceum', $typeEducation = $modelEducationForm->education);
                     break;
-                case 2:
-                    echo "i равно 2";
+                case 'ПТУ':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addSpecializedSchool', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'Техникум':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addTechnicalCollege', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'Колледж':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addCollege', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'ВУЗ':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addUniversity', $typeEducation = $modelEducationForm->education);
                     break;
             }
-            /*if($modelEducationForm->createEducation()) {
-                //$modelEducationForm->createEducation();
-                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
-            } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
-            }*/
-            $this->renderManual('__user-educations');
         }
         $this->renderManual('__user-educations', 'createEducation', true);
     }
 
     public function actionUpdateEducation($id) {
-        $modelEducationForm = new EducationForm(/*['scenario' => 'educationScenario']*/);
-
-        //dd($scenario);
+        $modelEducationForm = new EducationForm();
         if($modelEducationForm->load(Yii::$app->request->post())) {
-            if($modelEducationForm->validate()) {
-                //$modelEducationForm->saveEducation();
+            $scenario = Yii::$app->request->post('scenario');
+            //dd([$modelEducationForm->getTypeEdu($modelEducationForm->education)]);
+            switch ($modelEducationForm->getTypeEdu($modelEducationForm->education)) {
+                case 'Школа':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addSchool', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'Лицей':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addLyceum', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'ПТУ':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addSpecializedSchool', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'Техникум':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addTechnicalCollege', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'Колледж':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addCollege', $typeEducation = $modelEducationForm->education);
+                    break;
+                case 'ВУЗ':
+                    $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addUniversity', $typeEducation = $modelEducationForm->education);
+                    break;
+            }
+            /*if($modelEducationForm->validate()) {
                 Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
             } else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
-            }
+            }*/
             $this->renderManual('__user-educations');
         }
         $this->renderManual('__user-educations', 'updateEducation', $id);
     }
 
     public function actionDeleteEducation($id) {
-        //TPersonContact::findOne($id)->delete();
+        TPersonEdu::findOne($id)->delete();
         Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
         $this->renderManual('__user-educations');
+    }
+
+    private function checkEdu($modelEducationForm, $scenarioSend, $scenarioNeed, $typeEducation) {
+        /* @var $modelEducationForm \common\widgets\EducationWidget\models\EducationForm */
+        $modelEducationForm->setScenario($scenarioNeed);
+        $modelEducationForm->load(Yii::$app->request->post());
+        if($scenarioSend == $scenarioNeed && $modelEducationForm->validate()) {
+            if($modelEducationForm->createEducation()) {
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+                $this->renderManual('__user-educations');
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', 'Неверные данные'));
+            }
+        }
+        $modelEducationForm = new EducationForm(['scenario' => $scenarioNeed]);
+        $modelEducationForm->education = $typeEducation;
+        $this->renderManual('__user-educations', 'createEducation', true, $modelEducationForm);
     }
 
     private function renderManual($render, $sendProperty = false, $value = false, $model = false) {
