@@ -43,6 +43,14 @@
     padding: 0 !important;
     border: 0 !important;
 }
+.field-workform-startdate {
+    padding: 0 !important;
+    border: 0 !important;
+}
+.field-workform-enddate {
+    padding: 0 !important;
+    border: 0 !important;
+}
 .has-error > .chosen-container {
     border: 1px solid #a94442 !important;
     border-radius: 2px;

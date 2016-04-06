@@ -10,8 +10,10 @@ namespace frontend\modules\users\controllers;
 
 use common\models\TPersonContact;
 use common\models\TPersonEdu;
+use common\models\TPersonWork;
 use common\widgets\DataFieldsList\models\DataFieldsForm;
 use common\widgets\EducationWidget\models\EducationForm;
+use common\widgets\WorkWidget\models\WorkForm;
 use Yii;
 use common\models\TPerson;
 use frontend\controllers\BehaviorsController;
@@ -420,11 +422,6 @@ class ProfileController extends BehaviorsController
                     $this->checkEdu($modelEducationForm, $scenarioSend = $scenario, $scenarioNeed = 'addUniversity', $typeEducation = $modelEducationForm->education);
                     break;
             }
-            /*if($modelEducationForm->validate()) {
-                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
-            } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('app', $modelEducationForm->errors['education'][0]));
-            }*/
             $this->renderManual('__user-educations');
         }
         $this->renderManual('__user-educations', 'updateEducation', $id);
@@ -434,6 +431,40 @@ class ProfileController extends BehaviorsController
         TPersonEdu::findOne($id)->delete();
         Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
         $this->renderManual('__user-educations');
+    }
+
+    public function actionCreateWork() {
+        $modelWorkForm = new WorkForm();
+        if($modelWorkForm->load(Yii::$app->request->post())) {
+            if($modelWorkForm->createWork()) {
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно добавленны'));
+                $this->renderManual('__user-works');
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', 'Неверные данные'));
+            }
+            $this->renderManual('__user-works');
+        }
+        $this->renderManual('__user-works', 'createWork', true);
+    }
+
+    public function actionUpdateWork($id) {
+        $modelWorkForm = new WorkForm();
+        if($modelWorkForm->load(Yii::$app->request->post())) {
+            if($modelWorkForm->createWork($id)) {
+                Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно изменены'));
+                $this->renderManual('__user-works');
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app', 'Неверные данные'));
+            }
+            $this->renderManual('__user-works');
+        }
+        $this->renderManual('__user-works', 'updateWork', $id);
+    }
+
+    public function actionDeleteWork($id) {
+        TPersonWork::findOne($id)->delete();
+        Yii::$app->getSession()->setFlash('info', Yii::t('app', 'Данные успешно удалены'));
+        $this->renderManual('__user-works');
     }
 
     private function checkEdu($modelEducationForm, $scenarioSend, $scenarioNeed, $typeEducation) {

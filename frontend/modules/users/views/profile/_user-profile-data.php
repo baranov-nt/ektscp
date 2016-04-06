@@ -40,6 +40,15 @@ echo Collapse::widget([
             'options' => [],
             //'footer' => 'Footer' // the footer label in list-group
         ],
+        [
+            'label' => 'Работа  <span id="loadingWork" class="fa fa-spinner fa-spin" style="display: none;"></span>',
+            'content' => $this->render('__user-works'),
+            'contentOptions' => [
+                //'class' => 'in'
+            ],
+            'options' => [],
+            //'footer' => 'Footer' // the footer label in list-group
+        ],
     ],
     'encodeLabels' => false,
     'options' => [
