@@ -4,7 +4,7 @@ use frontend\components\widgets\WidgetUpload;
 ?>
 <div class="media" style="margin: 0 auto;">
 	<div class="upload_banner" style="margin: 0 auto;overflow: hidden;cursor: pointer;width: 330px;height: 200px;background: #ccc;margin-top: 20px;">
-		<img id="selector_banner"/>
+		<img id="selector_banner" src=""/>
 	</div>
 	<button id="upload_banner" style="margin-top: 6px;" class="btn btn-default" onclick="return false;">Загрузить <i class="fa fa-download"></i></button>
 	<br><br>
@@ -27,6 +27,7 @@ use frontend\components\widgets\WidgetUpload;
 		'class'  => 'form-control chosen-no-search',
 		'style' => 'width: 330px;',
 		'id' => 'showTime',
+		'onchange' => 'select_time(this.value)',
 		'prompt' => Yii::t('app', 'Выберите период трансляции')
 	]); ?>
 </div>

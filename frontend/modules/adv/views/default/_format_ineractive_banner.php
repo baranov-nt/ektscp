@@ -26,6 +26,8 @@ use frontend\components\widgets\WidgetUpload;
 	<?= Html::dropDownList('TAdv[modules]', null, $modelTAdv->modulesList, [
 		'class'  => 'form-control chosen-no-search',
 		'style' => 'width: 330px;',
+		'id' => 'showModule',
+		'onchange' => 'select_module(this.value)',
 		'prompt' => Yii::t('app', 'Выбор модуля для размещения')
 	]); ?>
 </div>

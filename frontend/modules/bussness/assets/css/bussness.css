@@ -1,0 +1,13 @@
+/* Catalog */
+#select_city_chosen {
+    width: 100% !important;
+}
+#companyform_categories_chosen {
+    width: 100% !important;
+}
+.has-error > .chosen-container {
+    border: 1px solid #a94442 !important;
+    border-radius: 5px;
+}
+
+

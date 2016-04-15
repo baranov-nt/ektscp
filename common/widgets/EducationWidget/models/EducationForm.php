@@ -86,7 +86,7 @@ class EducationForm extends Model
     {
         return ArrayHelper::map(GReferens::find()
             ->where([
-                'base_ref' => 482,
+                'base_ref' => 497,
             ])
             ->all(),'id_ref', 'name');
     }

@@ -25,7 +25,7 @@ class Tariffing extends yii\base\Component
 		
 		$total_profit = $this->calculationTotalProfit($place, $period, $diagonal_screen_coefficient, $work_time_coefficient, $popularity_place_coefficient); //Сумма за период
 			
-		$sale_of_count_day = $salecountofdate[$day_count]; //Скидка по дням		
+		$sale_of_count_day = (int) $salecountofdate[$day_count]; //Скидка по дням		
 		
 		return array(['total' => $total_profit, 'sale' => $sale_of_count_day]); 
 	  

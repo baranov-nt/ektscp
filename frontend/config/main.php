@@ -33,6 +33,9 @@ return [
         'users' => [
             'class' => 'frontend\modules\users\Module',
         ],
+        'bussness' => [
+            'class' => 'frontend\modules\bussness\Module',
+        ],
         'api' => [
             'class' => 'frontend\modules\api\Module',
         ],

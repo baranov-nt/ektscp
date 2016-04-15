@@ -9,6 +9,7 @@ use yii\bootstrap\Modal;
 use frontend\assets\ChosenAsset;
 use common\widgets\AlertIGrowl;
 
+
 /* @var $this yii\web\View */
 /* @var $model frontend\models\RegForm */
 /* @var $modelUser common\models\Users */
@@ -38,7 +39,6 @@ $this->title = 'Регистрация';
                     <?php
                     $form = ActiveForm::begin(['action' => Url::to(['/site/signup']), 'id' => 'form', 'options' => ['data-pjax' => true]]); ?>
                     <div class="row">
-
                         <div class="col-md-6">
                             <?= $form->field($model, 'first_name') ?>
                         </div>

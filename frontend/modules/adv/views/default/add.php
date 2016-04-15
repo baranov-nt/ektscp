@@ -32,6 +32,7 @@ $this->title = 'Smart Media';
 					<?= $form->field($modelTAdv, 'city')->dropDownList($modelTAdv->cityList, [
 								'class'  => 'form-control chosen-select',
 								'style' => 'width: 330px;',
+								'onchange' => 'select_city(this.value)',
 								'prompt' => Yii::t('app', 'Выберите город')
 							])->label(false) ?>
 				</div>
@@ -41,7 +42,7 @@ $this->title = 'Smart Media';
 			<?= $form->field($modelTAdv, 'format')->dropDownList($modelTAdv->formatList, [
 						'class'  => 'form-control chosen-no-search',
 						'style' => 'width: 330px;',
-						'onchange' => 'format_change(this.value)',
+						'onchange' => 'select_format(this.value)',
 						'prompt' => Yii::t('app', 'Выберите формат')
 					])->label(false) ?>
 			
@@ -54,7 +55,7 @@ $this->title = 'Smart Media';
 			<?= $form->field($modelTAdv, 'term')->dropDownList($modelTAdv->termList, [
 				'class'  => 'form-control chosen-no-search',
 				'style' => 'width: 330px;',
-				'onchange' => '',
+				'onchange' => 'select_term(this.value)',
 				'prompt' => Yii::t('app', 'Выберите срок')
 			])->label(false) ?>
 			<div id="period-date" class="row period-date" style="margin-top: 35px;">
@@ -63,11 +64,12 @@ $this->title = 'Smart Media';
 					<?=DatePicker::widget([
 						'language' => Yii::$app->language,
 						'name' => 'date',
+						'id' => 'select-date',
 						'type' => DatePicker::TYPE_COMPONENT_APPEND,
 						'layout' => '{input}{picker}',
 						'options' => [
 							'class' => 'period-picker page-dep',
-							'onchange' => 'select_date($(this))',
+							'onchange' => 'select_date(this.value)',
 						],
 						'pickerButton' => '<span class="input-group-addon kv-date-calendar" title="Выбрать дату"><i class="glyphicon period-calendar"></i></span>',
 						'buttonOptions' => 'label',
@@ -105,15 +107,15 @@ $this->title = 'Smart Media';
 				'class'  => 'form-control chosen-no-search',
 				'multiple' => true,
 				'style' => 'width: 330px;',
-				'onchange' => '',
+				'onchange' => 'select_place(this.value);',
 				'data-placeholder' => Yii::t('app', ' Выберите места установки')
 			])->label(false) ?>
 			<div class="checkbox checkbox-info checkbox-inline">
-				<input type="checkbox" data-id="cst" id="input-cst" onchange="filter_platform()" disabled />
+				<input type="checkbox" data-id="cst" id="input-cst" onchange="select_platform()" disabled />
 				<label for="input-cst" class="main-text">Терминалы</label>
 			</div>
 			<div class="checkbox checkbox-info checkbox-inline">
-				<input type="checkbox" data-id="csp" id="input-csp" onchange="filter_platform()" checked disabled />
+				<input type="checkbox" data-id="csp" id="input-csp" onchange="select_platform()" checked disabled />
 				<label for="input-csp" class="main-text">Городские смартфоны</label>
 			</div>
 		</div>
@@ -150,9 +152,10 @@ $this->title = 'Smart Media';
 		</div>
 	</div>
 	<div class="form-input-hidden">
-		<input type="text" style="display: none" name="atype" id="atype"/>
-		<input type="text" style="display: none" name="atime" id="atime"/>
-		<input type="text" style="display: none" name="adate" id="adate"/>
+		<input type="text" style="display: none" name="a_type" id="a_type"/>
+		<input type="text" style="display: none" name="a_time" id="a_time"/>
+		<input type="text" style="display: none" name="a_date" id="a_date"/>
+		<input type="text" style="display: none" name="a_sale" id="a_sale"/>
 	</div>
 	<?php ActiveForm::end(); ?>
 </div>

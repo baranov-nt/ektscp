@@ -30,6 +30,8 @@ $assetPath = $asset->baseUrl;
 	<?= Html::dropDownList('TAdv[showTime]', null, $modelTAdv->showTimeList, [
 		'class'  => 'form-control chosen-no-search',
 		'style' => 'width: 330px;',
+		'id' => 'showTime',
+		'onchange' => 'select_time(this.value)',
 		'prompt' => Yii::t('app', 'Выберите период трансляции')
 	]); ?>
 </div>

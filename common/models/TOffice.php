@@ -149,7 +149,7 @@ class TOffice extends \yii\db\ActiveRecord
             //
             [['subtype', 'vip', 'type', 'address_community', 'id_city', 'level', 'community', 'user', 'id_logo', 'parent_office', 'is_ex', 'id_campany',
                 'prev_office', 'parent_office_l', 'is_moderate', 'is_spr', 'id_office'], 'integer'],
-            [['title', 'street', 'house', 'category', 'id_city', 'street', 'phone', 'daysOfWeek', 'workMode'], 'required', 'on' => 'default'],
+            [['title', 'street', 'house', /*'category',*/ 'id_city', 'street', 'phone', /*'daysOfWeek', 'workMode'*/], 'required', 'on' => 'default'],
             [['title', 'dsc', 'phone', 'web', 'department', 'street', 'house', 'corp', 'num', 'pavilion', 'stand', 'logo', 'phone2', 'dsc_ex', 'lang', 'moderate_comment'], 'string'],
             [['price'], 'number'],
             [['email', 'email_2'], 'email'],

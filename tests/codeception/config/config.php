@@ -14,13 +14,14 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=yii2_advanced_tests',
+            'dsn' => 'sqlsrv:Server=192.168.0.11;Database=timilink',
         ],
         'mailer' => [
             'useFileTransport' => true,
         ],
         'urlManager' => [
-            'showScriptName' => true,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false
         ],
     ],
 ];

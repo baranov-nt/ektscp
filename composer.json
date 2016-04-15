@@ -20,6 +20,7 @@
         "bower-asset/chosen": "*",
         "bower-asset/flag-icon-css": "*",
         "bower-asset/fancyBox": "*",
+        "bower-asset/bootstrap-colorpicker": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-widget-datetimepicker": "^1.4",
         "kartik-v/yii2-widget-datepicker": "*",
@@ -30,14 +31,20 @@
         "dlds/yii2-infinite-scroll": "^0.2.0",
         "russ666/yii2-countdown": "^0.1.0",
         "bower-asset/iGrowl": "*",
-        "ladamalina/yii2-smsc": "dev-master"
+        "ladamalina/yii2-smsc": "dev-master",
+        "se/selenium-server-standalone": "^2.53",
+        "bower-asset/fontawesome": "4.5.*",
+        "codeception/codeception": "2.0.*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
+        "fzaninotto/faker": "*",
+        "guzzlehttp/guzzle": "5.3.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*",
-        "bower-asset/fontawesome": "4.5.*"
+        "yiisoft/yii2-faker": "*"
     },
     "config": {
         "process-timeout": 1800

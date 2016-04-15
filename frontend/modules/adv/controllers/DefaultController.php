@@ -165,7 +165,12 @@ class DefaultController extends Controller
 			$css = '';$cst = '';$csp = '';$type = '';$format = '';$place = '';$end_date = '';
 			$work_array = array();
 			$type_array = array();
+			$category_array = array();
+			$category = '';
 			
+			if ($_POST['array_place']) {
+				$category = ' AND category_place IN ('.implode(',', $_POST['array_place']).')';
+			}
 			if ($_POST['css'] == 'true') {
 				$GReferens = GReferens::findOne(['name' => 'CSS']);
 				$type_array[] = $GReferens->id_ref;
@@ -182,86 +187,94 @@ class DefaultController extends Controller
 				$type = ' AND type IN ('.implode(',', $type_array).')';
 			}
 			
-			$sql = 'ter.status = 1 AND ter.city = '.$_POST['id_city'].$type;
+			$sql = 'ter.status = 1 AND ter.city = '.$_POST['id_city'].$type.$category;
 
 			if ($_POST["format"] == '_format_template' || $_POST["format"] == '_format_video_banner') {
 				$place = 4;
 			} else if ($_POST["format"] == '_format_ineractive_vizitka') {
-				$place = 3;
+				$place = 10;
 			} else if ($_POST["format"] == '_format_ineractive_banner') {
 				$place = 4;
 			}/*  else if ($_POST["format"] == '_format_site_app') {
 				$place = 5;
 			} */
 			
-			$sql =  'SELECT *, ter.place as terminal_plcae, ter.type as terminal_type, advs.place as shedule_place '.
+			$sql =  'SELECT *, ter.place as terminal_place, ter.type as terminal_type, advs.place as shedule_place '.
 					' FROM t_terminal ter'.
 					' LEFT JOIN t_advShedule advs'.
 					' ON ter.id_terminal = advs.terminal'.
-					' AND advs.startdate >= \''.$_POST['start_date'].'\''.
-					' AND advs.enddate <= \''.$_POST['end_date'].'\''.
+					' AND advs.startdate <= \''.$_POST['end_date'].'\''.
+					' AND advs.enddate >= \''.$_POST['start_date'].'\''.
 					' AND advs.status IN (-2, 1)'.
 					($place ? ' AND advs.place = '.$place : '').
-					' LEFT JOIN t_adv adv'.
-					' ON advs.adv = adv.id_adv'.
-					($_POST['selectTime'] ? ' AND adv.period = '.$_POST['selectTime'] : '').
+					($_POST['selectTime'] ? ' AND advs.adv IN (SELECT id_adv FROM t_adv WHERE t_adv.period = '.$_POST['selectTime'].')' : '').
 					' WHERE '.$sql.
 					' ORDER BY ter.id_terminal ASC';
 			$TTerminal = Yii::$app->db->createCommand($sql)->queryAll();
 
 			$array_terminal = array();
 			$array_terminal_date = array();
-			$day_count;
+
 			foreach($TTerminal as $key => $value) {
-				//Запись диапазона дат в массив
-				$start = new \DateTime($_POST['start_date']);
-				$end   = new \DateTime($_POST['end_date']);
-				$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
-				$arrayOfDates = array_map(
-					function($item){return $item->format('d.m.Y');},
-					iterator_to_array($period)
-				);
-				$array_terminal_date[$value['id_terminal']] = $arrayOfDates;
-				$day_count = count($array_terminal_date[$value['id_terminal']]);
-				//Конец записи
-				if ($value['startdate']) {
-					if (in_array($value['startdate'], $array_terminal_date[$value['id_terminal']])) {
-						//Запись диапазона дат из базы в массив
-						$start = new \DateTime($value['startdate']);
-						$end   = new \DateTime($value['enddate']);
-						$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
-						$arrayOfDates2 = array_map(
-							function($item){return $item->format('d.m.Y');},
-							iterator_to_array($period)
-						);
-						//Сравниваем 2 массива дат и находи свободные дни
-						$resultDate = array_diff($arrayOfDates, $arrayOfDates2);
-						//Уничтожаем массив
-						unset($array_terminal_date['id_terminal']);
-						//Записываем новый массив
-						$array_terminal_date[$value['id_terminal']] = $resultDate;
-					}
+                //Запись диапазона дат в массив
+                if(!$array_terminal_date[$value['id_terminal']]) {
+					$start = new \DateTime($_POST['start_date']);
+					$end   = new \DateTime($_POST['end_date']);
+					$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
+					$arrayOfDates = array_map(
+						function($item){return $item->format('d.m.Y');},
+						iterator_to_array($period)
+					);
+                    $arrayOfDates[] = $end->format('d.m.Y');
+					$array_terminal_date[$value['id_terminal']]['dates'] = $arrayOfDates;
+					$array_terminal_date[$value['id_terminal']]['value'] = $value;
 				}
 
-				//Если есть свободные даты то пишем терминал
-				if ($array_terminal_date[$value['id_terminal']]) {
-					$GReferensType = GReferens::findOne(['id_ref' => $value['terminal_type']]);
-					
-					$array_terminal[$key]['id_terminal'] = $value['id_terminal'];
-					$array_terminal[$key]['category_place'] = $GReferensPlace->name;
-					$array_terminal[$key]['place'] = $value['terminal_plcae'];
-					$array_terminal[$key]['address'] = $value['address'];
-					$array_terminal[$key]['date'] = count($array_terminal_date[$value['id_terminal']]);
-					$array_terminal[$key]['platforma'] = $GReferensType->name;
-					
-					$calculate = Tariffing::calculationTariff(
-						$value['id_terminal'], $value['terminal_type'], $day_count,
-						$_POST['selectTime'], $value['shedule_place'], $value['diag'],
-						$value['worktime'], $value['passability']
+				//Конец записи
+				if ($value['startdate']) {
+					//Запись диапазона дат от startdate до enddate в массив
+					$start = new \DateTime($value['startdate']);
+					$end   = new \DateTime($value['enddate']);
+					$period = new \DatePeriod($start, new \DateInterval('P1D'), $end);
+					$arrayOfDates = array_map(
+						function($item){return $item->format('d.m.Y');},
+						iterator_to_array($period)
 					);
-					$array_terminal[$key]['price'] = '';
+                    $arrayOfDates[] = $end->format('d.m.Y');
+					
+					for ($i = 0;$i< count($arrayOfDates);$i++) {
+                        if (in_array($arrayOfDates[$i], $array_terminal_date[$value['id_terminal']]['dates'])) {
+							$key = array_search($arrayOfDates[$i], $array_terminal_date[$value['id_terminal']]['dates']);
+                            unset($array_terminal_date[$value['id_terminal']]['dates'][$key]);
+                        }
+                    }
+					
+					
 				}
 			}
+
+			foreach ($array_terminal_date as $key => $val) {
+				//Если есть свободные даты то пишем терминал
+				if ($array_terminal_date[$key]['dates']) {
+					$GReferensType = GReferens::findOne(['id_ref' => $array_terminal_date[$key]['value']['terminal_type']]);
+					
+					$day_count = count($array_terminal_date[$key]['dates']);
+					$array_terminal[$key]['id_terminal'] = $key;
+					$array_terminal[$key]['place'] = $array_terminal_date[$key]['value']['terminal_place'];
+					$array_terminal[$key]['address'] = $array_terminal_date[$key]['value']['address'];
+					$array_terminal[$key]['date'] = $day_count;
+					$array_terminal[$key]['platforma'] = $GReferensType->name;
+
+					$calculate = new Tariffing();
+					$sum = $calculate->calculationTariff(
+						$key, $array_terminal_date[$key]['value']['terminal_type'], $day_count,
+						$_POST['selectTime'], $place, $array_terminal_date[$key]['value']['diag'],
+						$array_terminal_date[$key]['value']['worktime'], $array_terminal_date[$key]['value']['passability']);
+					$array_terminal[$key]['price'] = $sum[0]['total'] * (1 - $sum[0]['sale'] / 100) * $day_count;
+					$array_terminal[$key]['sale'] = $sum[0]['sale'];
+				}
+			}
+
 			print json_encode(array("result" => true, "array_terminal" => $array_terminal));
 		} else {
 			print json_encode(array("result" => false, "error" => "Районы пустой массив!"));
@@ -273,6 +286,7 @@ class DefaultController extends Controller
 		if ($_POST) {
 			$date = new \DateTime($_POST['date']);
 			$date->modify($_POST['date_time']);
+			$date->modify('- 1 day');
 			print json_encode(array("result" => true, "date" => $date->format('d.m.Y')));
 		} else {
 			print json_encode(array("result" => false, "error" => "POST пустой!"));

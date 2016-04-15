@@ -34,24 +34,20 @@ $user = Yii::$app->user->identity;
 $this->beginBody();
 if(Yii::$app->controller->module->id == 'terminals' && Yii::$app->controller->action->id == 'map') {
     $shadow = '';
-    ?>
-    <style>
-        .shadow-bottom {
+    $this->registerCss("
+.shadow-bottom {
             box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.75);
             position: relative;
             z-index: 10;
         }
-    </style>
-    <?php
+ ");
 } else {
     $shadow = 'shadow-bottom';
-    ?>
-    <style>
-        .shadow-bottom {
+    $this->registerCss("
+.shadow-bottom {
             box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.75);
         }
-    </style>
-    <?php
+ ");
 }
 ?>
 <div class="wrap clearfix"><div class="header-wrapper">
@@ -154,6 +150,7 @@ if(Yii::$app->controller->module->id == 'terminals' && Yii::$app->controller->ac
                 'label' => '<span class="navbar-main-items-size-3">'.$user->tPerson->name.' '.$user->tPerson->family.'</span>',
                 'items' => [
                     ['label' => Yii::t('app', 'Мой профиль'), 'url' => Url::to(['/users/profile/index'])],
+                    ['label' => Yii::t('app', 'Мой бизнес'), 'url' => Url::to(['/bussness/manage/index'])],
                     ['label' => Yii::t('app', 'Выйти'), 'url' => Url::to(['/site/logout'])],
                 ],
                 'linkOptions' => [

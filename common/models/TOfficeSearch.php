@@ -63,7 +63,8 @@ class TOfficeSearch extends TOffice
 
         $query->andFilterWhere([
             'id_city' => $this->id_city,
-            'id_category'=> $this->category
+            'id_category' => $this->category,
+            'user' => $this->user
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title]);

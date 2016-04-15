@@ -4,9 +4,9 @@ use tests\codeception\frontend\FunctionalTester;
 /* @var $scenario Codeception\Scenario */
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that home page works');
+$I->wantTo(Yii::t('app', 'Убедиться, что главная страница работает.'));
 $I->amOnPage(Yii::$app->homeUrl);
-$I->see('My Company');
-$I->seeLink('About');
-$I->click('About');
-$I->see('This is the About page.');
+$I->seeInTitle('CitySmartMedia');
+$I->seeLink(Yii::t('app', 'MCM'));
+$I->click(Yii::t('app', 'MCM'));
+$I->seeInTitle('CitySmartMedia');

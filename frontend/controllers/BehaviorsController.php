@@ -49,6 +49,15 @@ class BehaviorsController extends Controller {
                         ],
                         'roles' => ['Пользователь']
                     ],
+                    [
+                        'allow' => true,
+                        'controllers' => ['bussness/manage'],
+                        'actions' =>
+                            [
+                                'index', 'create', 'view'
+                            ],
+                        'roles' => ['Пользователь']
+                    ],
                 ]
             ],
         ];
