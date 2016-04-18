@@ -13,9 +13,6 @@ return [
         ],
     ],
     'components' => [
-        'db' => [
-            'dsn' => 'sqlsrv:Server=192.168.0.11;Database=timilink',
-        ],
         'mailer' => [
             'useFileTransport' => true,
         ],

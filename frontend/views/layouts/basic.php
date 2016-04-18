@@ -154,6 +154,7 @@ if(Yii::$app->controller->module->id == 'terminals' && Yii::$app->controller->ac
                     ['label' => Yii::t('app', 'Выйти'), 'url' => Url::to(['/site/logout'])],
                 ],
                 'linkOptions' => [
+                    'id' => 'profileDropdown',
                     //'class' => 'navbar-main-items-left',
                     'style' => 'padding: 20px 10px 10px 10px'
                 ]

@@ -142,37 +142,42 @@ class RegForm extends Model
 
     public function reg()
     {
-        $modelUsers = new Users();
-        $phone = $this->phone;
-        $phone = str_replace([" ", "(", ")", "-", "_"], "", $phone);
-        $modelUsers->phone = $phone;
-        $modelUsers->username = $this->email;
-        $modelUsers->email = $this->email;
-        $modelUsers->old_user = 0;
-        $modelUsers->status_user = Users::STATUS_ACTIVE;
-        $modelUsers->setPassword($this->password);
-        $modelUsers->generateAuthKey();
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            if($modelUsers->save()):
-                $modelTPerson = new TPerson();
-                $modelTPerson->user = $modelUsers->id;
-                $modelTPerson->name = $this->first_name;
-                $modelTPerson->family = $this->family;
-                $modelTPerson->email = $this->email;
-                $modelTPerson->phone = $phone;
-                $modelTPerson->city = $this->city;
-                $modelTPerson->is_main = 1;
-                if($modelTPerson->save()):
-                    $transaction->commit();
-                    return RbacHelper::assignRole($modelUsers->getId()) ? $modelUsers : null;
+        if($this->validate()) {
+            $modelUsers = new Users();
+            $phone = $this->phone;
+            $phone = str_replace([" ", "(", ")", "-", "_"], "", $phone);
+            $modelUsers->username = $this->email;
+            $modelUsers->email = $this->email;
+            $modelUsers->phone = $phone;
+            $modelUsers->old_user = 0;
+            $modelUsers->status_user = Users::STATUS_ACTIVE;
+            $modelUsers->setPassword($this->password);
+            $modelUsers->generateAuthKey();
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($modelUsers->save()):
+                    $modelTPerson = new TPerson();
+                    $modelTPerson->user = $modelUsers->id;
+                    $modelTPerson->name = $this->first_name;
+                    $modelTPerson->family = $this->family;
+                    $modelTPerson->email = $this->email;
+                    $modelTPerson->phone = $phone;
+                    $modelTPerson->city = $this->city;
+                    $modelTPerson->is_main = 1;
+                    if ($modelTPerson->save()):
+                        $transaction->commit();
+                        return RbacHelper::assignRole($modelUsers->getId()) ? $modelUsers : null;
+                    endif;
+                else:
+                    return false;
                 endif;
-            else:
-                return false;
-            endif;
-        } catch (Exception $e) {
-            $transaction->rollBack();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+            }
         }
+        //pdd($this->errors);
+        
+        return false;
     }
 
     public function sendActivationEmail($user)
