@@ -20,5 +20,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false
         ],
+        'db' => [
+            
+        ]
     ],
 ];
