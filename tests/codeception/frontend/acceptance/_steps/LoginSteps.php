@@ -1,7 +1,6 @@
 <?php
 namespace tests\codeception\frontend\AcceptanceTester;
 
-use common\models\LoginForm;
 use tests\codeception\frontend\_pages\LoginPage;
 use tests\codeception\frontend\AcceptanceTester;
 

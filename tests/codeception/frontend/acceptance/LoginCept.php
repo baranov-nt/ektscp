@@ -4,7 +4,6 @@ use tests\codeception\frontend\AcceptanceTester;
 $I = new AcceptanceTester($scenario);
 $I = new AcceptanceTester\LoginSteps($scenario);
 $I->comment('Проверка авторизации пользователей');
-
 $I->amCheckValidationLoginForm($scenario);
 $I->comment('Отправка верных данных');
 $I->amCorrectLogin();
